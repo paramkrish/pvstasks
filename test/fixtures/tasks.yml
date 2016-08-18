@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  remarks: MyString
+  due_date: 2016-08-18
+  owner: MyString
+  status: 1
+  priority: 1
+  category_id: 1
+
+two:
+  title: MyString
+  remarks: MyString
+  due_date: 2016-08-18
+  owner: MyString
+  status: 1
+  priority: 1
+  category_id: 1

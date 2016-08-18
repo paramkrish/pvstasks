@@ -11,6 +11,45 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
+
+//setTimeout(function() {    $('.alert,.errormesg,.successmesg').fadeOut();}, 3000); // <-- time in milliseconds
+
+
+//$(function() {
+  //              $('#datetimepicker1').datetimepicker( { format : "DD-MMM-YYYY"} );
+//});
+
+var addDatePicker = function() {
+    // First, get a list of all elements we need to apply this to
+    var elements = $('#datetimepicker1');
+    
+    // Loop through each of them
+    elements.each(function(index, elem) {
+        // Convert elem into jQuery object
+        $elem = $(elem);
+        
+        // Check if data attribute called "datepicker-attached"
+        // If not, then call datepicker on it and set
+        // the "datepicker-attached" data attribute to true
+        if (!$elem.data('datepicker-attached')) {
+            // Attach the datepicker
+            $elem.datetimepicker( { format : "DD-MMM-YYYY"} );
+            
+            // Set datepicker-attached data-attribute to be true
+            $elem.data('datepicker-attached', true);
+        }
+    });
+}
+
+
+var $document = $(document);
+
+$document.on('turbolinks:load', function(event) {
+  addDatePicker();
+});
