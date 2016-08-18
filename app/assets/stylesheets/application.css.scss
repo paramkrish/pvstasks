@@ -17,3 +17,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap-datetimepicker';
+
+.container { 
+    margin-top: 50px; }
+
+ #main-container {     min-height: 1000px; }

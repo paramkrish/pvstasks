@@ -1,2 +1,12 @@
-<h1>Categories#new</h1>
-<p>Find me in app/views/categories/new.html.erb</p>
+<% provide(:title, "New") %>
+<div class='well'>Add a New Category</div>
+<%= form_for @category do |f| %>
+	<p>
+		<%= f.label :name %><br>
+		<%= f.text_field :name %>
+			<div class='errormesg'><%= @category.errors.full_messages.first if @category.errors.any? %></div>
+
+	</p>
+
+	<%= f.submit "Add Category" , class: "btn btn-primary"  %>
+<% end %>

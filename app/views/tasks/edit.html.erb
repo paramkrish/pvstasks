@@ -1,2 +1,49 @@
-<h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+<% provide(:title, "Edit") %>
+<div class='errormesg'><%= @task.errors.full_messages if @task.errors.any? %></div>
+<h1>Edit task</h1>
+
+<%= form_for @task do |f| %>
+	<p>
+
+		<%= f.label :title %><BR>
+		<%= f.text_field :title, class: 'form-control' %><BR>
+
+	</p>
+	<p>
+
+		<%= f.label :due_date %><BR>
+		<%= f.text_field :due_date, :id => "datetimepicker1"%>			
+		
+	</p>
+	<p>
+
+		<%= f.label :remarks %><BR>
+		<%= f.text_field :remarks%>			
+		
+	</p>
+	<p>
+
+		<%= f.label :owner %><BR>
+		<%= f.text_field :owner%>			
+		
+	</p>
+	<p>
+
+		<%= f.label :status %><BR>
+		<%= f.text_field :status%>			
+		
+	</p>
+
+		<p>
+
+		<%= f.label :priority %><BR>
+		<%= f.text_field :priority%>			
+		
+	</p>
+
+
+	<%= f.submit "Update Task", class:"btn btn-success" %>
+<% end %>
+<BR>
+<BR>
+<%= link_to  "Go Back", task_path %>

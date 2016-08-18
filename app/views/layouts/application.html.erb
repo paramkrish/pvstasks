@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pvstasks</title>
+    <title><%= yield(:title) %> | PVS Tasks in RoR framework</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-    <%= yield %>
+
+  <%= render 'partials/task' %>
+
+<html>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <h1>PVS Tasks</h1>
+        <p>Param, Vidhya, Shravan's Tasks | Designed by Param Krish<mkparam@gmail.com> using Rails 5 on 18/Aug/2016</p>
+
+  </div>
+</nav>
+
+<div class='container'>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><%= link_to "Show all Tasks" , tasks_path%></li>
+  <li role="presentation"><%= link_to "Show all Categories" , categories_path%></li>
+
+</ul>
+</div>
+
+    <div id="main-container" class="container">
+      <div class="row">
+
+        <div id="content" class="col-xs-9">
+		  <% flash.each do |name, msg| -%>
+		      <%= content_tag :div, msg, class: 'alert alert-'+name %>
+		    <% end -%>
+		    			<%= yield %>
+        </div>
+      </div>
+    </div>
+    
   </body>
 </html>

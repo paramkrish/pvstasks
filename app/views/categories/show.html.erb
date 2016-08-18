@@ -1,2 +1,10 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<% provide(:title, "Home") %>
+<h1>
+<% if @category.name %>
+<div class='task'><%= @category.name %></div>
+<% end %>
+</h1>
+
+<%= link_to  "Edit this Post", edit_category_path  , class: "btn btn-success" %>
+<%= link_to  "Show all", categories_path  , class: "btn btn-primary" %>
+<%= link_to  "Delete", @category, :confirm => "Are you sure ?" , :method => :delete  , class: "btn btn-danger" %>

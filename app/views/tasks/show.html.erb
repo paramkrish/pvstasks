@@ -1,2 +1,10 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<% provide(:title, "Home") %>
+<h1>
+<% if @task.title %>
+<div class='task'><%= @task.title %><BR><%= @task.due_date %></div>
+<% end %>
+</h1>
+
+<%= link_to  "Edit this Post", edit_task_path  , class: "btn btn-success" %>
+<%= link_to  "Show all", tasks_path  , class: "btn btn-primary" %>
+<%= link_to  "Delete", @task, :confirm => "Are you sure ?" , :method => :delete  , class: "btn btn-danger" %>
