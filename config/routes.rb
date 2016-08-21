@@ -2,6 +2,11 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :tasks
+
+  match '/tasks/toggletaskstatus/:id' => 'tasks#toggletaskstatus', as: 'toggletaskstatus_task', via: :put
+  get '/tasks/:id/:title' => 'tasks#show', :as => :task_with_title
+
+
   get 'categories/index'
 
   get 'categories/show'
@@ -29,6 +34,8 @@ Rails.application.routes.draw do
   get 'tasks/destroy'
 
   get 'tasks/create'
+
+  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

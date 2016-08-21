@@ -1,10 +1,19 @@
-<% provide(:title, "Home") %>
-<h1>
+<% provide(:title, "Task") %>
 <% if @task.title %>
-<div class='task'><%= @task.title %><BR><%= @task.due_date %></div>
+<div class='page-header'><h1>Tasks ( Current View : <%= @task_status %> ) </div>
+<div class='task'><h1><%= @task.title %></h1><BR><%= @task.due_date %></div>
+<div class='task'>Remarks : <%= @task.remarks %><BR>Owner : <%= @task.owner %></div>
+<div class='task'>Priority : <%= @task.priority %><BR>Status : <%= @task.status %></div>
+<% if @task.category_id %>
+<div class='task'>Category Id: <%= Category.find_by_id(@task.category_id).name %></div>
+<% else %>
+<div class='task'>Category Id: Unassigned</div>
+<% end %>
+<div class='task'>Created at : <%= @task.created_at.in_time_zone("Eastern Time (US & Canada)") %><BR>Updated at : <%= @task.updated_at.in_time_zone("Eastern Time (US & Canada)") %></div>
 <% end %>
 </h1>
 
+<HR>
 <%= link_to  "Edit this Post", edit_task_path  , class: "btn btn-success" %>
 <%= link_to  "Show all", tasks_path  , class: "btn btn-primary" %>
 <%= link_to  "Delete", @task, :confirm => "Are you sure ?" , :method => :delete  , class: "btn btn-danger" %>

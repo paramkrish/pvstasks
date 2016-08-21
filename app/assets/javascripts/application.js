@@ -39,7 +39,7 @@ var addDatePicker = function() {
         // the "datepicker-attached" data attribute to true
         if (!$elem.data('datepicker-attached')) {
             // Attach the datepicker
-            $elem.datetimepicker( { format : "DD-MMM-YYYY"} );
+            $elem.datetimepicker( { format : "DD-MMM-YYYY" } );
             
             // Set datepicker-attached data-attribute to be true
             $elem.data('datepicker-attached', true);

@@ -27,6 +27,10 @@
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><%= link_to "Show all Tasks" , tasks_path%></li>
   <li role="presentation"><%= link_to "Show all Categories" , categories_path%></li>
+  <li role="presentation"><%= link_to 'Show all Open tasks', {controller: 'tasks', action: 'index', :status => 0}  %></li>
+  <li role="presentation"><%= link_to 'Show all Closed tasks', {controller: 'tasks', action: 'index', :status => 1}  %></li>
+  <li role="presentation"><%= link_to "Show all Param's Tasks" , {controller: 'tasks', action: 'index', :owner => "Param"}  %></li>
+  <li role="presentation"><%= link_to "Show all Vidhya's Tasks" , {controller: 'tasks', action: 'index', :owner => "Vidhya"}  %>
 
 </ul>
 </div>

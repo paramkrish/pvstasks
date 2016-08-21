@@ -1,15 +1,26 @@
-<div class='page-header'><h1>Tasks</div>
+<% provide(:title, "Home Tasks") %>
+<div class='page-header'><h1><%=@current_view%></h1></div>
 <div class='posts'>
 <% if @tasks.each do |task| %>
-<%= link_to  task.title,task %>
+<% task_title = task.title.html_safe.gsub ' ','-' %>
+<% task_title = task_title.sub '-$','' %>
+<%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title) %>
+	<% task.status == 0 ? link_label = 'close' : link_label = 'reopen' %>
+	<% task.status == 0 ? btn_label = 'success' : btn_label = 'danger' %>
+	<%= link_to link_label , toggletaskstatus_task_path(task), method: :put , class: 'btn btn-sm btn-'+btn_label+' pull-right' %>
+
 <BR>
 <BR>
 <% end.empty? %>
-<i><p>There are no tasks created yet.</p></i>
+<i><p>There are no tasks in this bucket.</p></i>
 <% end %>
 </div>
 <BR>
+<% if @tasks.count > 0 %>
 <hr>
 <BR>
-
-<%= link_to "Add New Post" , new_task_path , class: 'btn btn-success' %>
+<p>Total Tasks : <%= @tasks.count %></p>
+<%end%>
+<% if ! params[:status].present? %>
+<%= link_to "Add New Task" , new_task_path , class: 'btn btn-success' %>
+<%end%>

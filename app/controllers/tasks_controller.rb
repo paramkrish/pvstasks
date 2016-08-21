@@ -1,4 +1,8 @@
 class TasksController < ApplicationController
+  helper_method :closed_tasks, :update_task
+  has_scope :status
+
+  @all_users  = "Param"
 
   def new
     @task = Task.new
@@ -6,6 +10,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(user_params)
+
     if @task.save
       flash[:success] =  "New task created"
       redirect_to tasks_path
@@ -20,11 +25,34 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all
+  @current_view = "All Tasks"
+  @tasks = Task.where(nil) # creates an anonymous scope
+  @tasks = @tasks.status(params[:status]) if params[:status].present?
+  @tasks = @tasks.owner(params[:owner]) if params[:owner].present?
+  @tasks = @tasks.priority(params[:priority]) if params[:priority].present?
+  if params[:status].present?
+    params[:status] == "0" ? @current_view = "Open Tasks" : @current_view = "Closed Tasks"
+  end
+  #@tasks = @tasks.category_id(params[:category_id]) if params[:category_id].present?
+  if params[:owner].present?
+    case params[:owner]
+    when "Vidhya"
+      @current_view = "Vidhya's Tasks" 
+    when "Param"
+      @current_view = "Param's Tasks" 
+    when "Shravan"
+      @current_view = "Shravan's Tasks" 
+    else
+      @current_view = "All Tasks" 
+    end
+  end
   end
 
+
   def show
-    @task = Task.find(params[:id])
+    @task_id = params[:id].split('-').first
+    @task = Task.find(@task_id)
+
   end
 
   def update
@@ -32,11 +60,19 @@ class TasksController < ApplicationController
     #if @task.update_attributes(:name => "New") 
     if @task.update_attributes(user_params)
       flash[:success] = "Your task is Updated."
-      redirect_to task_path
+      redirect_to tasks_path
     else
       render "edit"
     end
+  end
 
+  def toggletaskstatus
+    @task = Task.find(params[:id])
+    @task.status == 1 ? @task.status=0 : @task.status=1
+    @task.status == 1 ? @task_status= "CLOSED now .." : @task_status= "OPENED again"
+    @task.save
+    flash[:success] = "Task '#{@task.title}' is " + " #{@task_status}"
+    redirect_to tasks_path
   end
 
   def destroy
@@ -47,7 +83,7 @@ class TasksController < ApplicationController
   end
 
   def user_params
-    params.require(:task).permit(:title,:due_date)
+    params.require(:task).permit(:title,:remarks,:category_id,:due_date,:owner,:priority,:status)
   end
 
 end

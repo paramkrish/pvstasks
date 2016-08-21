@@ -1,7 +1,9 @@
+<% provide(:title, "Home Category") %>
+
 <div class='page-header'><h1>Categories</div>
 <div class='posts'>
 <% if @categories.each do |c| %>
-<%= link_to  c.name,c %>
+<div><span><%= link_to  c.name,c %></span><span class='pull-right td-hover badge'> <%= gettasks_count(c.id) %></span></div>
 <BR>
 <BR>
 <% end.empty? %>

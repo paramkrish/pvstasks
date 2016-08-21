@@ -1,10 +1,11 @@
-<% provide(:title, "Home") %>
-<h1>
+<% provide(:title, "Home category") %>
 <% if @category.name %>
-<div class='task'><%= @category.name %></div>
+<div class='task'><h1><%= @category.name %></h1></div>
+<p>Created at: <%= @category.created_at%>, Updated at: <%= @category.updated_at %></p>
+<p>Total tasks in it : <%= @taskCount %></p>
 <% end %>
 </h1>
 
 <%= link_to  "Edit this Post", edit_category_path  , class: "btn btn-success" %>
 <%= link_to  "Show all", categories_path  , class: "btn btn-primary" %>
-<%= link_to  "Delete", @category, :confirm => "Are you sure ?" , :method => :delete  , class: "btn btn-danger" %>
+<%= link_to 'Delete',url_for(action: :destroy,id: @category.id),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>

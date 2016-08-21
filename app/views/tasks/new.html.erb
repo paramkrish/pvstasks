@@ -1,38 +1,41 @@
-<% provide(:title, "New") %>
+<% provide(:title, "New Task") %>
 <div class='well'>Add a New Task</div>
 <%= form_for @task do |f| %>
 	<p>
-		<%= f.label :Task %><br>
+		<%= f.label :title %><br>
 		<%= f.text_field :title %>
 			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
 			</p>
-			
+
 			<p>
-		<%= f.label :Remarks %><br>
+		<%= f.label :remarks %><br>
 		<%= f.text_area :remarks %>
 			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
-</p>
-<p>
-		<%= f.label :Assign_To %><br>
-		<%= f.text_field :owner %>
-			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
-</p>
-<p>
-		<%= f.label :Priority %><br>
-		<%= f.text_field :priority %>
-			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
-</p>
-<p>
-		<%= f.label :Task %><br>
-		<%= f.text_field :title %>
-			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
-</p>
+		</p>
 			<p>
-		<%= f.label :category_id %><br>
-		<%= f.collection_select(:category_id, Category.all, :id, :name) %>
+			<%= f.label :owner %><br>
+			<%= f.select :owner, ['Vidhya', 'Param', 'Shravan'] %>
+			</p>
+
+			<p>
+			<%= f.label :priority %><br>
+			<%= f.select :priority, [ ['HIGH' , 1 ], ['MEDIUM' , 2 ], [ 'LOW' , 3] ] %>
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+		</p>
+		
+			<p>
+			<%= f.label :status %><br>
+			<%= f.select :status, [ ['OPEN' , 1] , ['CLOSE' , 0 ] ] %>
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+		</p>
+
+
+		<p>
+		<%= f.label :category_id %><br>	
+		<%= f.select :category_id, Category.all.collect { |x| [x.name,x.id] }, { :include_blank => "Select One" } %>
 	</p>
 
-		<p><%= f.label :Due_By %><br>
+		<p><%= f.label :due_date %><br>
 		<%= f.text_field :due_date, :id => "datetimepicker1"%>			
 			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
 			</p>

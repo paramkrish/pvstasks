@@ -1,46 +1,45 @@
-<% provide(:title, "Edit") %>
+<% provide(:title, "Edit Tasks") %>
 <div class='errormesg'><%= @task.errors.full_messages if @task.errors.any? %></div>
 <h1>Edit task</h1>
 
 <%= form_for @task do |f| %>
 	<p>
+		<%= f.label :title %><br>
+		<%= f.text_field :title %>
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+			</p>
 
-		<%= f.label :title %><BR>
-		<%= f.text_field :title, class: 'form-control' %><BR>
+			<p>
+		<%= f.label :remarks %><br>
+		<%= f.text_area :remarks %>
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+		</p>
+			<p>
+			<%= f.label :owner %><br>
+			<%= f.select :owner, ['Vidhya', 'Param', 'Shravan'] %>
+			</p>
 
-	</p>
-	<p>
-
-		<%= f.label :due_date %><BR>
-		<%= f.text_field :due_date, :id => "datetimepicker1"%>			
+			<p>
+			<%= f.label :priority %><br>
+			<%= f.select :priority, [ ['HIGH' , 1 ], ['MEDIUM' , 2 ], [ 'LOW' , 3] ] %>
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+		</p>
 		
-	</p>
-	<p>
-
-		<%= f.label :remarks %><BR>
-		<%= f.text_field :remarks%>			
-		
-	</p>
-	<p>
-
-		<%= f.label :owner %><BR>
-		<%= f.text_field :owner%>			
-		
-	</p>
-	<p>
-
-		<%= f.label :status %><BR>
-		<%= f.text_field :status%>			
-		
-	</p>
+			<p>
+			<%= f.label :status %><br>
+			<%= f.select :status, [ ['OPEN' , 1] , ['CLOSE' , 0 ] ] %>
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+		</p>
 
 		<p>
-
-		<%= f.label :priority %><BR>
-		<%= f.text_field :priority%>			
-		
+		<%= f.label :category_id %><br>	
+		<%= f.select :category_id, Category.all.collect { |x| [x.name,x.id] }, { :include_blank => "Select One" } %>
 	</p>
 
+		<p><%= f.label :due_date %><br>
+		<%= f.text_field :due_date, :id => "datetimepicker1"%>			
+			<div class='errormesg'><%= @task.errors.full_messages.first if @task.errors.any? %></div>
+			</p>
 
 	<%= f.submit "Update Task", class:"btn btn-success" %>
 <% end %>
