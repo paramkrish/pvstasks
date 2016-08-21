@@ -18,10 +18,13 @@
 @import "bootstrap";
 @import 'bootstrap-datetimepicker';
 
-.container { 
+.quickhref { color:#DDD; }
+.quickhref:hover { color:#FFF; }
+
+.container1 { 
     margin-top: 50px; }
 
- #main-container {     min-height: 1000px; }
+ #main-container1 {     min-height: 1000px; }
 
  textarea, input { height: 50px;
     border-radius: 5px;

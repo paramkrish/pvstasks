@@ -49,9 +49,9 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    if gettasks_count > 0
-          #@taskCount = Task.category_id(@category.id).count
-          flash[:danger] = "Category '#{@category.name}' cannot be deleted. It has #{gettasks_count} tasks. Please move them to delete this category."
+    if gettasks_count(params[:id]) > 0
+          taskCount = gettasks_count(params[:id])
+          flash[:danger] = "Category '#{@category.name}' cannot be deleted. It has tasks. You must move the tasks to other category first."
           redirect_to categories_path
     else
       @category.destroy
