@@ -1,6 +1,5 @@
 <% provide(:title, "Task") %>
 <% if @task.title %>
-<div class='page-header'><h1>Tasks ( Current View : <%= @task_status %> ) </div>
 <div class='task'><h1><%= @task.title %></h1><BR><%= @task.due_date %></div>
 <div class='task'>Remarks : <%= @task.remarks %><BR>Owner : <%= @task.owner %></div>
 <div class='task'>Priority : <%= @task.priority %><BR>Status : <%= @task.status %></div>
