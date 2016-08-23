@@ -10,7 +10,9 @@ class Task < ApplicationRecord
   	scope :reopen, -> (reopen) { where status: 1 }
 
 	belongs_to :category
-	validates :title, presence: true
+	validates :title, presence: true, uniqueness: true
+	validates_length_of :title, :in => 5..100
+
 
 
 end

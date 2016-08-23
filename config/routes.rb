@@ -2,9 +2,12 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :tasks
+  root to: 'tasks#index'
 
   match '/tasks/toggletaskstatus/:id' => 'tasks#toggletaskstatus', as: 'toggletaskstatus_task', via: :put
+
   get '/tasks/:id/:title' => 'tasks#show', :as => :task_with_title
+  get '/categories/:id/:name' => 'categories#show', :as => :category_with_name
 
 
   get 'categories/index'

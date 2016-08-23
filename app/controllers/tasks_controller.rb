@@ -10,9 +10,10 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(user_params)
+    @task.update_attributes(:status =>0) 
 
     if @task.save
-      flash[:success] =  "New task created"
+      flash[:success] =  "New Task <strong>'#{@task.title}'</strong> is created successfully"
       redirect_to tasks_path
     else
       render "new"
@@ -50,8 +51,8 @@ class TasksController < ApplicationController
 
 
   def show
-    @task_id = params[:id].split('-').first
-    @task = Task.find(@task_id)
+    @task_id = params[:id].split('-').first or not_found
+    @task = Task.find(@task_id) or not_found
 
   end
 
@@ -59,26 +60,26 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     #if @task.update_attributes(:name => "New") 
     if @task.update_attributes(user_params)
-      flash[:success] = "Your task is Updated."
-      redirect_to tasks_path
+      flash[:success] = "Task <strong>'#{@task.title}'</strong> is Updated."
+      redirect_to task_path
     else
       render "edit"
     end
   end
 
   def toggletaskstatus
-    @task = Task.find(params[:id])
+    @task = Task.find(params[:id]) or not_found
     @task.status == 1 ? @task.status=0 : @task.status=1
-    @task.status == 1 ? @task_status= "CLOSED now .." : @task_status= "OPENED again"
+    @task.status == 1 ? @task_status= " marked COMPLETE." : @task_status= "OPENED"
     @task.save
-    flash[:success] = "Task '#{@task.title}' is " + " #{@task_status}"
+    flash[:success] = "Task <strong>'#{@task.title}'</strong> is " + " #{@task_status}"
     redirect_to tasks_path
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    @task = Task.find(params[:id]) or not_found
     @task.destroy
-    flash[:danger] = "That task is deleted."
+    flash[:danger] = "Task <strong>'#{@task.title}'</strong> is deleted."
     redirect_to tasks_path
   end
 

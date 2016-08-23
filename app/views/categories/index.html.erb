@@ -1,17 +1,28 @@
 <% provide(:title, "Home Category") %>
 
-<div class='page-header'><h1>Categories</div>
-<div class='posts'>
+<div class='page-header'><h1>All Categories</h1></div>
+<div class='list-group'>
 <% if @categories.each do |c| %>
-<div><span><%= link_to  c.name,c %></span><span class='pull-right td-hover badge'> <%= gettasks_count(c.id) %></span></div>
-<BR>
-<BR>
+<div class='list-group-item '>
+		<% c_title = c.name.html_safe.gsub ' ','-' %>
+		<% c_title = c_title.sub '-$','' %>
+
+	<h4 class="list-group-item-heading"><%= link_to c.name.upcase.html_safe, category_with_name_path(c, :name => c_title)%></h4>
+    <p class="list-group-item-text"><%= c.desc %></small></p><BR>
+	<div class='label label-default label-lg'>Number of Tasks : <%= gettasks_count(c.id) %></div>
+	</div>
 <% end.empty? %>
 <i><p>There are no categories created yet.</p></i>
 <% end %>
 </div>
 <BR>
-<hr>
-<BR>
 
-<%= link_to "Add New Category" , new_category_path , class: 'btn btn-success' %>
+<%= link_to "Create New Category" , new_category_path , class: 'btn btn-success' %>
+</div>
+
+<script type="text/javascript">
+    $(function() {    	
+    	$("ul.navbar-nav li").removeClass("active");
+    	$("li.categories").addClass("active");
+    });
+</script>

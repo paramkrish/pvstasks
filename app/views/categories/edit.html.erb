@@ -1,17 +1,18 @@
 <% provide(:title, "Edit Category") %>
 <div class='errormesg'><%= @category.errors.full_messages if @category.errors.any? %></div>
-<h1>Edit Category</h1>
+<div class='page-header'><h1>Edit Category</h1></div>
 
 <%= form_for @category do |f| %>
 	<p>
-
 		<%= f.label :name %><BR>
 		<%= f.text_field :name, class: 'form-control' %><BR>
+	</p>
+
+	<p>
+		<%= f.label :description %><BR>
+		<%= f.text_area :desc,:rows => 5, :cols => 100, class: 'form-control' %>
 
 	</p>
 
 	<%= f.submit "Update Category", class:"btn btn-success" %>
 <% end %>
-<BR>
-<BR>
-<%= link_to  "Go Back", task_path %>

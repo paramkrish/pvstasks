@@ -1,26 +1,69 @@
 <% provide(:title, "Home Tasks") %>
 <div class='page-header'><h1><%=@current_view%></h1></div>
-<div class='posts'>
-<% if @tasks.each do |task| %>
-<% task_title = task.title.html_safe.gsub ' ','-' %>
-<% task_title = task_title.sub '-$','' %>
-<%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title) %>
-	<% task.status == 0 ? link_label = 'close' : link_label = 'reopen' %>
-	<% task.status == 0 ? btn_label = 'success' : btn_label = 'danger' %>
-	<%= link_to link_label , toggletaskstatus_task_path(task), method: :put , class: 'btn btn-sm btn-'+btn_label+' pull-right' %>
-
-<BR>
-<BR>
-<% end.empty? %>
-<i><p>There are no tasks in this bucket.</p></i>
-<% end %>
-</div>
-<BR>
 <% if @tasks.count > 0 %>
-<hr>
-<BR>
-<p>Total Tasks : <%= @tasks.count %></p>
+<% @color = "grey" %>
+<div class="table-responsive">
+  <table class="table table-striped">
+  <th></th>
+  <th class='col-md-5'>Task</th>
+  <th>Due By</th>
+  <th class='text-center'>Owner</th>
+  <th>Category</th>
+  <th>Created On</th>
+  <th class='col-md-2'>Task Actions</th>
+
+<%end%>
+  	<% if @tasks.each do |task| %>
+		<% task_title = task.title.html_safe.gsub ' ','-' %>
+		<% task_title = task_title.sub '-$','' %>
+		<tr>
+		<% task.priority == 1 ? @icon = "arrow-up": @icon = "arrow-down" %>
+		<% task.priority == 1 ? @color = "red" : task.priority == 2 ? @color = "orange" : @color = "grey" %>
+		<% task.priority == 1 ? @pr = "HIGH" && @icon = "arrow-up" : task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
+		<% task.status == 1 ? @color = "green" : @color = @color %>
+		<% task.status == 0 ? @label_tag = @pr+" Priority" : @label_tag = "Task closed" %>
+
+		<td class="table-cell"><a href="#" style='text-decoration:none;' title='<%=@label_tag%>' class='glyphicon glyphicon-<%=@icon%> <%= @color %>'></a></td>
+		<td class="table-cell"><%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title)%></td>		
+		<% if task.due_date != nil %> <td class='col-md-1'><small><%= task.due_date.strftime("%d-%b-%Y") %></small></td>
+		<%else%>
+		<td class="table-cell">-</td>
+		<%end%>
+		<% task_owner = task.owner %>
+		<td class='text-center'><%= link_to task.owner, tasks_path(:owner => task.owner), :title => task_owner, class:"label label-default" %></td>
+		<td><%= link_to task.category.name, categories_path %></td>	
+		<td><small><%= task.created_at.in_time_zone("Asia/Calcutta").strftime("%m/%d/%y %H:%M") %></small></td>
+		<td>
+			<% task.status == 0 ? link_label = 'close' : link_label = 'reopen' %>
+			<% task.status == 0 ? btn_label = 'btn-success' : btn_label = 'btn-warning' %>
+			<% task.status == 0 ? link_color = 'btn-success' : link_color = 'btn-warning' %>
+			<div class="btn-group btn-group-sm" role="group">
+			<% if task.status == 0 %>
+				<%= link_to "edit" , edit_task_url(task), title:'Click to edit this task' , class:"btn btn-info" %>
+			<% end %>
+			<%= link_to link_label , toggletaskstatus_task_path(task), method: :put , title:'Click to toggle status of this task' , class:"btn #{btn_label}" %>
+			<%= link_to  "Delete", task, :method => :delete  , title:'Delete this task permanently' , class: "btn btn-danger", data: {confirm: "Are you sure?" } %>
+			</div>
+			
+			</td>
+					</tr>
+
+	<% end.empty? %>
+	<i><p>There are no tasks in this bucket.</p></i>
+	<% end %>
+	</table>
+
+<% if @tasks.count > 0 %>
+
+<div class='well text-right starting-template'><h4>No. of Tasks <span class='label label-default'><%= @tasks.count %></span> </h4>
 <%end%>
 <% if ! params[:status].present? %>
-<%= link_to "Add New Task" , new_task_path , class: 'btn btn-success' %>
 <%end%>
+</div>
+
+<script type="text/javascript">
+    $(function() {    	
+    	$("ul.navbar-nav li").removeClass("active");
+    	$("li.tasks").addClass("active");
+    });
+</script>

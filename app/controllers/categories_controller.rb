@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(user_params)
     if @category.save
-      flash[:success] =  "New category '#{@category.name}' created"
+      flash[:success] =  "New category <strong>'#{@category.name}'</strong> is created successfully."
       redirect_to categories_path
     else
       render "new"
@@ -39,7 +39,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     #if @category.update_attributes(:name => "New") 
     if @category.update_attributes(user_params)
-      flash[:success] = "Your category '#{@category.name}' is Updated."
+      flash[:success] = "Your category <strong>'#{@category.name}'</strong> is Updated."
       redirect_to category_path
     else
       render "edit"
@@ -51,17 +51,17 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     if gettasks_count(params[:id]) > 0
           taskCount = gettasks_count(params[:id])
-          flash[:danger] = "Category '#{@category.name}' cannot be deleted. It has tasks. You must move the tasks to other category first."
+          flash[:danger] = "Category <strong>'#{@category.name}'</strong> cannot be deleted. It has tasks. You must move the tasks to other category first."
           redirect_to categories_path
     else
       @category.destroy
-      flash[:success] = "Category '#{@category.name}' deleted."
+      flash[:success] = "Category <strong>'#{@category.name}'</strong> is just deleted."
       redirect_to categories_path
     end
   end
 
   def user_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name,:desc)
   end
 
 end

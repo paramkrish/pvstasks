@@ -1,11 +1,25 @@
 <% provide(:title, "Home category") %>
 <% if @category.name %>
-<div class='task'><h1><%= @category.name %></h1></div>
-<p>Created at: <%= @category.created_at%>, Updated at: <%= @category.updated_at %></p>
-<p>Total tasks in it : <%= @taskCount %></p>
-<% end %>
-</h1>
 
-<%= link_to  "Edit this Post", edit_category_path  , class: "btn btn-success" %>
-<%= link_to  "Show all", categories_path  , class: "btn btn-primary" %>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <span><h4><%= @category.name.upcase %></h4></span>
+    <span><p><%= @category.desc %></p></span>
+  </div>
+
+  <div class="panel-body">
+		<div class='bold'>Number of Tasks assigned to it</div>
+		<div class='label label-default'><%=@taskCount%></div>
+		<BR>
+		<hr>
+		<div>
+			<span class='label label-default'>Created at : <%= @category.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+			<span class='label label-default pull-right'>Last Updated at : <%= @category.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+		</div>
+	</div>
+<% end %>
+</div>
+<BR>
+<%= link_to  "Go Back", categories_path  , class: "btn btn-default" %>
+<%= link_to  "Edit", edit_category_path  , class: "btn btn-success" %>
 <%= link_to 'Delete',url_for(action: :destroy,id: @category.id),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>

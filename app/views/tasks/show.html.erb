@@ -1,18 +1,48 @@
 <% provide(:title, "Task") %>
 <% if @task.title %>
-<div class='task'><h1><%= @task.title %></h1><BR><%= @task.due_date %></div>
-<div class='task'>Remarks : <%= @task.remarks %><BR>Owner : <%= @task.owner %></div>
-<div class='task'>Priority : <%= @task.priority %><BR>Status : <%= @task.status %></div>
-<% if @task.category_id %>
-<div class='task'>Category Id: <%= Category.find_by_id(@task.category_id).name %></div>
-<% else %>
-<div class='task'>Category Id: Unassigned</div>
-<% end %>
-<div class='task'>Created at : <%= @task.created_at.in_time_zone("Eastern Time (US & Canada)") %><BR>Updated at : <%= @task.updated_at.in_time_zone("Eastern Time (US & Canada)") %></div>
-<% end %>
-</h1>
 
-<HR>
-<%= link_to  "Edit this Post", edit_task_path  , class: "btn btn-success" %>
-<%= link_to  "Show all", tasks_path  , class: "btn btn-primary" %>
-<%= link_to  "Delete", @task, :confirm => "Are you sure ?" , :method => :delete  , class: "btn btn-danger" %>
+<% @task.priority == 1 ? @pr = "HIGH" : @task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <span class='pull-left'><h4><%= @task.title %></h4></span>
+    <span class="text-right"><h4> <%= @pr %></h4></span>
+  </div>
+  <div class="panel-body">
+
+<% if @task.category_id %>
+<div class='task bold'>Category </div><div><%= link_to @task.category.name, categories_path %></div>
+<% else %>
+<BR><div class='task'>Category Id: Unassigned</div>
+<% end %>
+<BR><div class='bold'>Owner</div>
+<div><%= link_to @task.owner, tasks_path(:owner => @task.owner) %></div>
+<BR>
+<div class='task bold'>Remarks
+<div> <%= @task.remarks %></div>
+<hr>
+<div>
+	<span class='label label-default'>Created at : <%= @task.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+	<span class='label label-default pull-right'>Last Updated at : <%= @task.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+</div>
+<% end %>
+  </div>
+</div>
+</div>
+<BR>
+
+<%= link_to  "Go Back", tasks_path  , class: "btn btn-default" %>
+<% if @task.status == 0 %>
+<%= link_to  "Mark as Complete", toggletaskstatus_task_path(@task), method: :put , title:'Mark to Complete this task'  , class: "btn btn-success" %>
+<%= link_to  "Edit", edit_task_path  , class: "btn btn-info" %>
+<%else%>
+<%= link_to "reopen" , toggletaskstatus_task_path(@task), method: :put , title:'Click to toggle status of this task' , class:"btn btn-warning" %>
+<%end%>
+<%= link_to  "Delete", @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
+
+<script type="text/javascript">
+    $(function() {    	
+    	$("ul.navbar-nav li").removeClass("active");
+    	$("li.tasks.status").addClass("active");    	
+    });
+</script>

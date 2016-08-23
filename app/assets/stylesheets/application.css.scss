@@ -18,17 +18,34 @@
 @import "bootstrap";
 @import 'bootstrap-datetimepicker';
 
+div#datetimepicker {position: relative; }
+
+.bold { font-weight:bold;}
+.red { color:red;}
+.orange { color:orange;}
+.grey { color:grey;}
+.green { color:green;}
 .quickhref { color:#DDD; }
 .quickhref:hover { color:#FFF; }
-
+.starter-template {     margin: 40px; }
 .container1 { 
     margin-top: 50px; }
 
  #main-container1 {     min-height: 1000px; }
 
- textarea, input { height: 50px;
+.edit_task, .new_task, .new_category, .edit_category {
+    padding: 20px;
+    background: #DDD;
+    border: 1px solid #AAA;
     border-radius: 5px;
-    border: 1px solid #DDD;
-    box-shadow: none;
-    font-size: 30px;
-    color: #545f9e;padding:10px;     width: 100%;}
+    }
+
+.glyphicon { font-size:15px;}
+
+.navbar-icon { font-size:30px;}
+
+li.navbar-txt a{
+padding: 7px 14px;
+    margin: 8px;    font-size: 21px;
+    }
+li.navbar-txt a:hover { background:#5cb85c !important;}
