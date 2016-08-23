@@ -17,7 +17,9 @@
 </div>
 <BR>
 
+<% if @categories.count > 0 %>
 <%= link_to "Create New Category" , new_category_path , class: 'btn btn-success' %>
+<%end%>
 </div>
 
 <script type="text/javascript">
