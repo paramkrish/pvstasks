@@ -31,7 +31,7 @@
 		<%end%>
 		<% task_owner = task.owner %>
 		<td class='text-center'><%= link_to task.owner, tasks_path(:owner => task.owner), :title => task_owner, class:"label label-default" %></td>
-		<td><%= link_to task.category.name, categories_path %></td>	
+		<td><a href='/categories/<%= task.category.id%>/<%= task.category.name.html_safe %>'><%= task.category.name.html_safe %></a></td>	
 		<td><small><%= task.created_at.in_time_zone("Asia/Calcutta").strftime("%m/%d/%y %H:%M") %></small></td>
 		<td>
 			<% task.status == 0 ? link_label = 'close' : link_label = 'reopen' %>
