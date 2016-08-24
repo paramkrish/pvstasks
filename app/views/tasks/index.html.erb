@@ -17,9 +17,9 @@
 		<% task_title = task.title.html_safe.gsub ' ','-' %>
 		<% task_title = task_title.sub '-$','' %>
 		<tr>
-		<% task.priority == 1 ? @icon = "arrow-up": @icon = "arrow-down" %>
+		<% task.priority == 1 ? @icon = "arrow-up" : @icon = "arrow-down" %>
 		<% task.priority == 1 ? @color = "red" : task.priority == 2 ? @color = "orange" : @color = "grey" %>
-		<% task.priority == 1 ? @pr = "HIGH" && @icon = "arrow-up" : task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
+		<% task.priority == 1 ? @pr = "HIGH" : task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
 		<% task.status == 1 ? @color = "green" : @color = @color %>
 		<% task.status == 0 ? @label_tag = @pr+" Priority" : @label_tag = "Task closed" %>
 
