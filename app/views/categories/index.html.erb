@@ -7,14 +7,15 @@
 			<% c_title = c_title.sub '-$','' %>
 
 		<div style='padding: 9px 13px;border-bottom:1px solid #DDD;'>
-			<a href='/categories/<%= c.id%>/<%= c_title %>'>
-				<h4><%= c_title %></h4></a>
+				<a href='/categories/<%= c.id%>/<%= c_title %>'>
+				<h4><%= c_title %></h4>
+				</a>
 			    <p><%= c.desc %></p>
 
 		    <div class='well'>
 			    <% if c.tasks.category_id(c.id).count > 0 %>		    	
 			    	<h4><u>LIST OF TASKS</u></h4>
-			    	<% else %><div><p>No Tasks in this category</p>
+			    	<% else %><p>No Tasks in this category</p>
 			    <%end%>
 				
 				<% c.tasks.category_id(c.id).each do |t| %>
