@@ -27,10 +27,11 @@
 					<% t.priority == 1 ? @color = "red" : t.priority == 2 ? @color = "orange" : @color = "grey" %>
 					<% t.priority == 1 ? @pr = "HIGH": t.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>				
 					<% t.status == 0 ? t_status_color = "label-warning" : t_status_color = "label-success" %>
-					<div>
+					<div style='    padding: 3px 16px;background: #FFF;border-radius: 10px;margin: 10px;'>
 						<span title='<%=@pr%> PRIORITY' class='glyphicon glyphicon-<%=@icon%> <%=@color%>'></span>
 						<span class='label label-default <%=t_status_color%>'><%=t_status%></span>
 						<a class='list-group-item-text' href="/tasks/<%=t.id%>/<%=t_title %>"><%=t.title%></a></span>			
+						<span class='pull-right glyphicon glyphicon-calendar'> <%=t.due_date.strftime("%d-%b-%Y")%></span>
 					</div>
 				<%end%>
 			</div>
