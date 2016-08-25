@@ -15,7 +15,7 @@
 		    <div class='well'>
 			    <% if c.tasks.category_id(c.id).count > 0 %>		    	
 			    	<h4><u>LIST OF TASKS</u></h4>
-			    	<% else %><p>No Tasks in this category</p>
+			    	<% else %>No Tasks in this category
 			    <%end%>
 				
 				<% c.tasks.category_id(c.id).each do |t| %>

@@ -8,10 +8,6 @@
   </div>
 
   <div class="panel-body">
-		<div class='bold'>Number of Tasks assigned to it</div>
-		<div class='label label-default'><%=@taskCount%></div>
-		<BR>
-		<hr>
 		<div>
 			<span class='label label-default'>Created at : <%= @category.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
 			<span class='label label-default pull-right'>Last Updated at : <%= @category.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
@@ -20,6 +16,6 @@
 <% end %>
 </div>
 <BR>
-<%= link_to  "Go Back", categories_path  , class: "btn btn-default" %>
-<%= link_to  "Edit", edit_category_path  , class: "btn btn-success" %>
-<%= link_to 'Delete',url_for(action: :destroy,id: @category.id),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+<%= link_to  "<span class=' glyphicon glyphicon-chevron-left'></span>Go Back".html_safe, categories_path  , class: "btn btn-default" %>
+<%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, edit_category_path  , class: "btn btn-success" %>
+<%= link_to "<span class=' glyphicon glyphicon-trash'></span> Delete".html_safe,url_for(action: :destroy,id: @category.id),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>

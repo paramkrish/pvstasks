@@ -53,5 +53,7 @@
 			</p>
 
 
-	<%= f.submit "Submit" , class: "btn btn-primary"  %>
+		<%= f.button :submit, class: "btn btn-primary" do %>
+		  <span class='glyphicon glyphicon-circle-arrow-up'></span> Submit
+		<% end %>
 <% end %>

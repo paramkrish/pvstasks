@@ -32,14 +32,14 @@
 </div>
 <BR>
 
-<%= link_to  "Go Back", tasks_path  , class: "btn btn-default" %>
+<%= link_to  "<span class=' glyphicon glyphicon-chevron-left'></span>Go Back".html_safe, tasks_path  , class: "btn btn-default" %>
 <% if @task.status == 0 %>
-<%= link_to  "Mark as Complete", toggletaskstatus_task_path(@task), method: :put , title:'Mark to Complete this task'  , class: "btn btn-success" %>
-<%= link_to  "Edit", edit_task_path  , class: "btn btn-info" %>
+<%= link_to  "<span class=' glyphicon glyphicon-ok-sign'></span> Mark as Complete".html_safe, toggletaskstatus_task_path(@task), method: :put , title:'Mark to Complete this task'  , class: "btn btn-success" %>
+<%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, edit_task_path  , class: "btn btn-info" %>
 <%else%>
 <%= link_to "reopen" , toggletaskstatus_task_path(@task), method: :put , title:'Click to toggle status of this task' , class:"btn btn-warning" %>
 <%end%>
-<%= link_to  "Delete", @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
+<%= link_to  "<span class=' glyphicon glyphicon-trash'></span> Delete".html_safe, @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
 
 <script type="text/javascript">
     $(function() {    	

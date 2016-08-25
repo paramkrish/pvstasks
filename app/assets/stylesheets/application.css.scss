@@ -49,3 +49,7 @@ padding: 7px 14px;
     margin: 8px;    font-size: 21px;
     }
 li.navbar-txt a:hover { background:#5cb85c !important;}
+
+.task_actions_lists li { list-style:none;display:inline-block;margin-left: 8px;}
+.task_actions_lists li a { color: #777; text-decoration:none;}
+.task_actions_lists li a:hover { color: #000; }	

@@ -6,11 +6,11 @@
   <table class="table table-striped">
   <th></th>
   <th class='col-md-5'>Task</th>
-  <th>Due By</th>
+  <th class='text-center'>Due By</th>
   <th class='text-center'>Owner</th>
   <th>Category</th>
   <th>Created On</th>
-  <th class='col-md-2'>Task Actions</th>
+  <th class='text-center'>Task Actions</th>
 
 <%end%>
   	<% if @tasks.each do |task| %>
@@ -25,7 +25,7 @@
 
 		<td class="table-cell"><a href="#" style='text-decoration:none;' title='<%=@label_tag%>' class='glyphicon glyphicon-<%=@icon%> <%= @color %>'></a></td>
 		<td class="table-cell"><%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title)%></td>		
-		<% if task.due_date != nil %> <td class='col-md-1'><small><%= task.due_date.strftime("%d-%b-%Y") %></small></td>
+		<% if task.due_date != nil %> <td class='col-md-1 text-center'><small><div style='background: #555;font-weight: bold;color: #FFF;'><%= task.due_date.strftime("%d") %></div><div style='background: #888;color:#FAFAFA'><%= task.due_date.strftime("%b") %></div></small></td>
 		<%else%>
 		<td class="table-cell">-</td>
 		<%end%>
@@ -35,15 +35,16 @@
 		<td><small><%= task.created_at.in_time_zone("Asia/Calcutta").strftime("%m/%d/%y %H:%M") %></small></td>
 		<td>
 			<% task.status == 0 ? link_label = 'close' : link_label = 'reopen' %>
-			<% task.status == 0 ? btn_label = 'btn-success' : btn_label = 'btn-warning' %>
+			<% task.status == 0 ? btn_title = 'Mark this ticket as completed' : btn_title = 'Click to Reopen this task' %>
+			<% task.status == 0 ? btn_label = 'glyphicon glyphicon-remove-circle' : btn_label = 'glyphicon glyphicon-ok-circle' %>
 			<% task.status == 0 ? link_color = 'btn-success' : link_color = 'btn-warning' %>
-			<div class="btn-group btn-group-sm" role="group">
+			<ul class='task_actions_lists'>
 			<% if task.status == 0 %>
-				<%= link_to "edit" , edit_task_url(task), title:'Click to edit this task' , class:"btn btn-info" %>
+				<li><%= link_to "edit" , edit_task_url(task), title:'Click to edit this task' , class:"glyphicon glyphicon-pencil" %></li>
 			<% end %>
-			<%= link_to link_label , toggletaskstatus_task_path(task), method: :put , title:'Click to toggle status of this task' , class:"btn #{btn_label}" %>
-			<%= link_to  "Delete", task, :method => :delete  , title:'Delete this task permanently' , class: "btn btn-danger", data: {confirm: "Are you sure?" } %>
-			</div>
+			<li><%= link_to link_label , toggletaskstatus_task_path(task), method: :put , title:"#{btn_title}" , class:"#{btn_label}" %></li>
+			<li><%= link_to  "del", task, :method => :delete  , title:'Delete this task permanently' , class: "glyphicon glyphicon-trash", data: {confirm: "Are you sure?" } %></li>
+			</ul>
 			
 			</td>
 					</tr>
