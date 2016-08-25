@@ -20,6 +20,7 @@
 				
 				<% c.tasks.category_id(c.id).each do |t| %>
 
+
 					<% t_title = t.title.html_safe.gsub ' ','-' %>
 					<% t_title = t_title.sub '-$','' %>
 					<% t.status == 0 ? t_status = "OPEN" : t_status = "COMPLETED" %>
@@ -27,6 +28,9 @@
 					<% t.priority == 1 ? @color = "red" : t.priority == 2 ? @color = "orange" : @color = "grey" %>
 					<% t.priority == 1 ? @pr = "HIGH": t.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>				
 					<% t.status == 0 ? t_status_color = "label-warning" : t_status_color = "label-success" %>
+					<% t.status == 1 ? @color = "green" : @color = @color %>					
+					<% t.status == 1 ? @icon = "check" : @icon = @icon %>
+
 					<div style='    padding: 3px 16px;background: #FFF;border-radius: 10px;margin: 10px;'>
 						<span title='<%=@pr%> PRIORITY' class='glyphicon glyphicon-<%=@icon%> <%=@color%>'></span>
 						<span class='label label-default <%=t_status_color%>'><%=t_status%></span>
