@@ -21,6 +21,7 @@
 		<% task.priority == 1 ? @color = "red" : task.priority == 2 ? @color = "orange" : @color = "grey" %>
 		<% task.priority == 1 ? @pr = "HIGH" : task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
 		<% task.status == 1 ? @color = "green" : @color = @color %>
+		<% task.status == 1 ? @icon = "check" : @icon = @icon %>
 		<% task.status == 0 ? @label_tag = @pr+" Priority" : @label_tag = "Task closed" %>
 
 		<td class="table-cell"><a href="#" style='text-decoration:none;' title='<%=@label_tag%>' class='glyphicon glyphicon-<%=@icon%> <%= @color %>'></a></td>
