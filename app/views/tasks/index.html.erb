@@ -57,7 +57,9 @@
 
 <% if @tasks.count > 0 %>
 
-<div class='well text-right starting-template'><h4>No. of Tasks <span class='label label-default'><%= @tasks.count %></span> </h4>
+<div class='well text-right starting-template'>
+<h4>No. of Tasks <span class='label label-default'><%= @tasks.count %></span> </h4>
+</div>
 <%end%>
 <% if ! params[:status].present? %>
 <%end%>

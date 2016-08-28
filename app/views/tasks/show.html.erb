@@ -4,7 +4,7 @@
 <% @task.priority == 1 ? @pr = "HIGH" : @task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
 <% @task.priority == 1 ? color = "red" : @task.priority == 2 ? color = "orange" : color = "grey" %>
 
-<div class="panel panel-info">
+<div class="panel panel-default">
   <div class="panel-heading">
     <span class='pull-left'><h4><%= @task.title %></h4></span>
     <span class="text-right"><h4> <%= @pr %></h4></span>
@@ -19,9 +19,9 @@
 <BR><div class='bold'>Owner</div>
 <div><%= link_to @task.owner, tasks_path(:owner => @task.owner) %></div>
 <% if @task.remarks.size > 0 %>
-<BR>
+<BR><BR>
 <div class='task bold'>Remarks
-<div><%= @task.remarks %></div>
+<div style='padding:10px;border:1px solid #DDD;border-radius: 5px;background:#f9f9f9;margin-top:10px;'><%= @task.remarks.html_safe %></div>
 </div>
 <%end%>
 <hr>

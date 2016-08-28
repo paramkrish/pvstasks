@@ -8,7 +8,7 @@
 
 		<div style='padding: 9px 13px;border-bottom:1px solid #DDD;'>
 				<a href='/categories/<%= c.id%>/<%= c_title %>'>
-				<h4><%= c_title %></h4>
+				<h4><%= c.name.html_safe %></h4>
 				</a>
 			    <p><%= c.desc %></p>
 
