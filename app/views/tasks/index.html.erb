@@ -1,4 +1,9 @@
 <% provide(:title, "All Tasks") %>
+<div>
+<a class='btn btn-primary' href="/tasks/new"><span class='glyphicon glyphicon-plus'></span> Create Task</a>
+<a class='btn btn-primary' href="/categories/new"><span class='glyphicon glyphicon-plus'></span> Create Category</a>
+</div>
+
 <div class='page-header'><h1><%=@current_view%></h1></div>
 <% if @tasks.count > 0 %>
 <% @color = "grey" %>
@@ -11,21 +16,21 @@
   <th>Category</th>
   <th>Created On</th>
   <th class='text-center'>Task Actions</th>
-
 <%end%>
   	<% if @tasks.each do |task| %>
 		<% task_title = task.title.html_safe.gsub ' ','-' %>
 		<% task_title = task_title.sub '-$','' %>
 		<tr>
-		<% task.priority == 1 ? @icon = "arrow-up" : @icon = "arrow-down" %>
+		<% task.priority == 3 ? @icon = "arrow-down" : @icon = "arrow-up" %>
 		<% task.priority == 1 ? @color = "red" : task.priority == 2 ? @color = "orange" : @color = "grey" %>
 		<% task.priority == 1 ? @pr = "HIGH" : task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
 		<% task.status == 1 ? @color = "green" : @color = @color %>
+		<% task.status == 1 ? @title_color = "grey" : @title_color = "black" %>
 		<% task.status == 1 ? @icon = "check" : @icon = @icon %>
 		<% task.status == 0 ? @label_tag = @pr+" Priority" : @label_tag = "Task closed" %>
 
 		<td class="table-cell"><a href="#" style='text-decoration:none;' title='<%=@label_tag%>' class='glyphicon glyphicon-<%=@icon%> <%= @color %>'></a></td>
-		<td class="table-cell"><%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title)%></td>		
+		<td class="table-cell"><%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title), :class => "#{@title_color}" %></td>		
 		<% if task.due_date != nil %> <td class='col-md-1 text-center'><small><div style='background: #555;font-weight: bold;color: #FFF;'><%= task.due_date.strftime("%d") %></div><div style='background: #888;color:#FAFAFA'><%= task.due_date.strftime("%b") %></div></small></td>
 		<%else%>
 		<td class="table-cell">-</td>
@@ -56,6 +61,22 @@
 	</table>
 
 <% if @tasks.count > 0 %>
+
+<%= link_to 'Click Here', "#my-modal", data: {toggle: "modal", target: "#my-modal"} %>
+
+<div class="modal hide fade" id="my-modal" title="My modal">
+  <div class="modal-header">
+    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    Modal Body
+  </div>
+  <div class="modal-footer">
+    <button aria-hidden="true" class="btn" data-dismiss="modal">Close</button>
+  </div>
+</div>
+
 
 <div class='well text-right starting-template'><h4>No. of Tasks <span class='label label-default'><%= @tasks.count %></span> </h4>
 <%end%>

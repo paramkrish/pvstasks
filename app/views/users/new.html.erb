@@ -1,0 +1,22 @@
+<% provide(:title, "New Sign Up") %>
+  <% if @user.errors.any? %>
+  <div class='alert alert-danger'>
+    <strong> Error(s) : </strong> 
+    <% for message_error in @user.errors.full_messages %>
+      <li>* <%= message_error %></li>
+    <% end %>
+    </ul>
+    </div>
+  <% end %>
+
+
+<div class='well'><h1>Sign Up</h1></div><BR>
+<div class="Sign_Form col-md-3">
+  <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
+    <p> Username:</br> <%= f.text_field :username, :class => 'form-control'%> </p>
+    <p> Email:</br> <%= f.text_field :email, :class => 'form-control'%> </p>
+    <p> Password:</br> <%= f.password_field :password , :class => 'form-control'%></p>
+    <p> Password Confirmation:</br> <%= f.password_field :password_confirmation, :class => 'form-control'%> </p><BR>
+    <%= submit_tag("Sign Up", :class => "btn btn-success")%>
+  <% end %>
+</div>

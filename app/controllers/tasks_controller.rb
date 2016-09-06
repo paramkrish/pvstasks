@@ -1,4 +1,8 @@
 class TasksController < ApplicationController
+
+  before_action :authenticate_user
+  before_action :save_login_state
+
   helper_method :closed_tasks, :update_task
   has_scope :status
 
@@ -50,9 +54,11 @@ class TasksController < ApplicationController
   end
 
 
+
   def show
     @task_id = params[:id].split('-').first or not_found
     @task = Task.find(@task_id) or not_found
+  
 
   end
 
@@ -70,10 +76,15 @@ class TasksController < ApplicationController
   def toggletaskstatus
     @task = Task.find(params[:id]) or not_found
     @task.status == 1 ? @task.status=0 : @task.status=1
-    @task.status == 1 ? @task_status= " marked COMPLETE." : @task_status= "OPENED"
+    @task.status == 1 ? @task_status= " marked COMPLETE." : @task_status= "RE-OPENED"
     @task.save
-    flash[:success] = "Task <strong>'#{@task.title}'</strong> is " + " #{@task_status}"
+        flash[:success] = "Task <strong>'#{@task.title}'</strong> is " + " #{@task_status}"
     redirect_to tasks_path
+  end
+
+
+  def comment_add_to_tasks
+    flash[:success] = "Comment added"
   end
 
   def destroy

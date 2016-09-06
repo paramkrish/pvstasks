@@ -1,5 +1,8 @@
 class CategoriesController < ApplicationController
 
+  before_action :authenticate_user
+  before_action :save_login_state
+
   helper_method :gettasks_count 
 
   def new

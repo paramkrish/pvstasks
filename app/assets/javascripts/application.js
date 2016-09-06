@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require turbolinks
 //= require moment
 //= require bootstrap-datetimepicker
@@ -21,9 +21,13 @@
 setTimeout(function() {    $('.alert,.errormesg,.successmesg').fadeOut();}, 3000); // <-- time in milliseconds
 
 
+
+
 //$(function() {
   //              $('#datetimepicker1').datetimepicker( { format : "DD-MMM-YYYY"} );
 //});
+
+
 
 var addDatePicker = function() {
     // First, get a list of all elements we need to apply this to

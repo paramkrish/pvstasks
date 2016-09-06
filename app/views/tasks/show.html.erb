@@ -43,9 +43,29 @@
 <%end%>
 <%= link_to  "<span class=' glyphicon glyphicon-trash'></span> Delete".html_safe, @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
 
-<script type="text/javascript">
+<BR><BR><BR>
+<h4>Comments</h4>
+<div id='comments'>
+<% if @task.comments.count > 0%>
+  <%= render @task.comments %>
+  <% else %>
+  <span class='grey'><i>No comments added yet</i></span>
+  <% end %>
+</div>
+<BR>
+<HR>
+<h4>New Comment</h4>
+<%= render 'comments/form' %>
+
+  <script type="text/javascript">
     $(function() {    	
     	$("ul.navbar-nav li").removeClass("active");
     	$("li.tasks.status").addClass("active");    	
+
+      $("#comment_submit1").click(function(){
+        //$("#comments").html(data);
+        $("textarea#comment_comments").val("").empty();
+            });
+
     });
 </script>

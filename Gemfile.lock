@@ -171,7 +171,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt (~> 3.1.7)
+  bcrypt
   bootstrap-sass (= 3.3.6)
   bootstrap3-datetimepicker-rails (~> 4.14.30)
   byebug

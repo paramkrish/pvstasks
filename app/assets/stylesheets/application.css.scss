@@ -55,4 +55,6 @@ li.navbar-txt a:hover { background:#5cb85c !important;}
 
 .task_actions_lists li { list-style:none;display:inline-block;margin-left: 8px;}
 .task_actions_lists li a { color: #777; text-decoration:none;}
+a.action_link { color: #999; text-decoration:none;}
+a.action_link:hover { color: red;text-decoration:none; }	
 .task_actions_lists li a:hover { color: #000; }	

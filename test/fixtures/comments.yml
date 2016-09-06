@@ -2,12 +2,10 @@
 
 one:
   username: MyString
-  email: MyString
-  encrypted_password: MyString
-  salt: MyString
+  comments: MyText
+  task: one
 
 two:
   username: MyString
-  email: MyString
-  encrypted_password: MyString
-  salt: MyString
+  comments: MyText
+  task: two

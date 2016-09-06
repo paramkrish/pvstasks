@@ -1,4 +1,8 @@
 <% provide(:title, "All Categories") %>
+<div>
+<a class='btn btn-primary' href="/tasks/new"><span class='glyphicon glyphicon-plus'></span> Create Task</a>
+<a class='btn btn-primary' href="/categories/new"><span class='glyphicon glyphicon-plus'></span> Create Category</a>
+</div>
 
 <div class='page-header'><h1>All Categories</h1></div>
 <div style='border:1px solid #DDD;border-radius:5px;background:#fdfdfd'>
@@ -8,13 +12,13 @@
 
 		<div style='padding: 9px 13px;border-bottom:1px solid #DDD;'>
 				<a href='/categories/<%= c.id%>/<%= c_title %>'>
-				<h4><%= c_title %></h4>
+				<h4><%= c.name.html_safe %></h4>
 				</a>
 			    <p><%= c.desc %></p>
 
 		    <div class='well'>
 			    <% if c.tasks.category_id(c.id).count > 0 %>		    	
-			    	<h4><u>LIST OF TASKS</u></h4>
+			    	<h4><u>TASKS</u></h4>
 			    	<% else %>No Tasks in this category
 			    <%end%>
 				
@@ -23,8 +27,9 @@
 
 					<% t_title = t.title.html_safe.gsub ' ','-' %>
 					<% t_title = t_title.sub '-$','' %>
+					<% t.status == 1 ? @title_color = "grey" : @title_color = "black" %>
 					<% t.status == 0 ? t_status = "OPEN" : t_status = "COMPLETED" %>
-					<% t.priority == 1 ? @icon = "arrow-up": @icon = "arrow-down" %>
+					<% t.priority == 3 ? @icon = "arrow-down": @icon = "arrow-up" %>
 					<% t.priority == 1 ? @color = "red" : t.priority == 2 ? @color = "orange" : @color = "grey" %>
 					<% t.priority == 1 ? @pr = "HIGH": t.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>				
 					<% t.status == 0 ? t_status_color = "label-warning" : t_status_color = "label-success" %>
@@ -34,7 +39,7 @@
 					<div style='    padding: 3px 16px;background: #FFF;border-radius: 10px;margin: 10px;'>
 						<span title='<%=@pr%> PRIORITY' class='glyphicon glyphicon-<%=@icon%> <%=@color%>'></span>
 						<span class='label label-default <%=t_status_color%>'><%=t_status%></span>
-						<a class='list-group-item-text' href="/tasks/<%=t.id%>/<%=t_title %>"><%=t.title%></a></span>			
+						<a class='list-group-item-text <%=@title_color%>' href="/tasks/<%=t.id%>/<%=t_title %>"><%=t.title%></a></span>			
 						<span class='pull-right glyphicon glyphicon-calendar'> <%=t.due_date.strftime("%d-%b-%Y")%></span>
 					</div>
 				<%end%>

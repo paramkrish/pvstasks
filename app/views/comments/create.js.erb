@@ -1,0 +1,7 @@
+$('#comments').html("<%=j render @task.comments %>");
+$("textarea#comment_comments").val("").empty();
+<% if @comment.errors.empty? %>
+  $("#notice").html("Comment was successfully posted.");
+<% else %>
+  $("#notice").html("Error! Comment not posted.");
+<% end %>

@@ -1,0 +1,12 @@
+<% provide(:title, "Login") %>
+
+<div class='well'><h1>Login</h1></div><BR>
+<div class="Sign_Form col-md-3">
+  
+  <%= form_tag(:action => 'login_attempt', :controller => "sessions") do %>
+    
+    <p> Username or Email :</br> <%= text_field_tag :username_or_email, "", class: 'form-control' %> </p>
+    <p>Password:</br> <%= password_field_tag :login_password, "", class: 'form-control'  %></p> <BR>
+    <%= submit_tag("Log In", :class => "btn btn-success")%>
+  <% end %>
+</div>

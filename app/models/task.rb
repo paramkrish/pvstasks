@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
 	#attr_accessor :title, :category_id, :owner, :remarks, :due_date, :status, :priority
+	has_many :comments, dependent: :destroy
 	default_scope -> { order('created_at DESC') }
 
 	scope :status, -> (status) { where status: status }
