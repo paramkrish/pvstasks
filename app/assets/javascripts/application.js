@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
+//= require ckeditor/init
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .
@@ -51,9 +52,20 @@ var addDatePicker = function() {
     });
 }
 
+var ckEditor = function()  { 
+CKEDITOR.replace( $('.ckeditor').attr('id') ,
+    {
+        toolbar : 'Basic', /* this does the magic */
+        uiColor : '#AFAFAA'
+    });
+
+}
+
 
 var $document = $(document);
 
 $document.on('turbolinks:load', function(event) {
+//  console.log("turbolinks:load done");
   addDatePicker();
+  ckEditor();
 });

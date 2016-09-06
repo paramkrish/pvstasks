@@ -11,9 +11,6 @@
 
   <body>
 
-  <%= render 'partials/task' %>
-  <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -65,6 +62,7 @@
     background: #eee;
     border-radius: 4px;'>You have logged in as <i><B><%=c_user%></B></i> </div>
       <%end%>
+
         <div class="starter-template">
           <p class="lead">
           		  <% flash.each do |name, msg| -%>
@@ -77,5 +75,6 @@
 
     </div><!-- /.container -->
 
+  
   </body>
 </html>

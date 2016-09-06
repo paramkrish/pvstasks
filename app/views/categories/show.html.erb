@@ -1,7 +1,7 @@
 <% provide(:title, "Category") %>
 <% if @category.name %>
 
-<div class="panel panel-info">
+<div class="panel panel-default">
   <div class="panel-heading">
     <span><h4><%= @category.name.upcase %></h4></span>
     <span><p><%= @category.desc %></p></span>
@@ -15,6 +15,7 @@
 	</div>
 <% end %>
 </div>
+
 <BR>
 <%= link_to  "<span class=' glyphicon glyphicon-chevron-left'></span>Go Back".html_safe, categories_path  , class: "btn btn-default" %>
 <%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, edit_category_path  , class: "btn btn-success" %>
