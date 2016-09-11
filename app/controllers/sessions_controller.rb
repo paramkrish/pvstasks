@@ -13,7 +13,8 @@ class SessionsController < ApplicationController
 		#Profile Page
 	end
 
-	def setting
+
+	def preferences
 		#Setting Page
 		flash.discard
 	end
@@ -27,8 +28,10 @@ class SessionsController < ApplicationController
 	def login_attempt
 		authorized_user = User.authenticate(params[:username_or_email],params[:login_password])
 		if authorized_user
-			session[:user_id] = authorized_user.id
-			session[:username] = authorized_user.username
+			session[:current_user_id] = authorized_user.id
+			session[:current_username] = authorized_user.username	
+			session[:expires_at] = Time.current + 24.hours
+		
 			flash[:success] = "Welcome again, #{authorized_user.username} logged in"
 			redirect_back_or root_path || redirect_to(:action => 'home')
 
@@ -41,7 +44,7 @@ class SessionsController < ApplicationController
 
 	def logout
 		flash.discard
-		session[:user_id] = nil
+		session[:current_user_id] = nil
 		#redirect_to :action => 'login'
 	end
 

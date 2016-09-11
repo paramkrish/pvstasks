@@ -64,8 +64,15 @@ CKEDITOR.replace( $('.ckeditor').attr('id') ,
 
 var $document = $(document);
 
+
 $document.on('turbolinks:load', function(event) {
 //  console.log("turbolinks:load done");
   addDatePicker();
-  ckEditor();
+  //ckEditor();
 });
+
+
+
+//window.onbeforeunload = function(){
+//  return 'Are you sure you want to leave?';
+//};

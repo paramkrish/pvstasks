@@ -4,7 +4,11 @@
   <div style='width:98%;display:inline-block;'>
       <div style='margin:5px;border:1px solid #cbc8c8;background:#eee;padding:10px;border-radius: 5px;'>
         <div style='background:#7d7d7d;color:#FFF;padding:5px;margin:5px 0px;'>
-        <span><i class='glyphicon glyphicon-user'></i> <%=comment.username %></span>
+        <% @this_user = User.where("id" => comment.user_id).first %>    
+        <% user_avatar = @this_user.avatar.url %>
+        <img src='<%=user_avatar%>' class='img img-circle' style='width:30px;'/>
+
+        <span><%=@this_user.username %></span>
         
         <span class='pull-right'><i class='glyphicon glyphicon-calendar'></i> <%= comment.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M:%S") %></span>
         </div>
@@ -13,7 +17,7 @@
   </div>
 
   <div style='width:5%;display:inline;'>
-  <% if comment.username == session[:username] %>
+  <% if comment.user_id == session[:user_id] %>
     <span>
       <%= link_to '', [comment.task, comment],
                  method: :delete,class:"glyphicon glyphicon-trash action_link",

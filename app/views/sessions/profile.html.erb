@@ -1,2 +1,51 @@
 <% provide(:title, "Profile") %>
-<h2 class='User_Header'><%=@current_user.username%></h2><BR> Profile 
+<h2>Profile</h2>
+<hr>
+<b>Customer ID</b>
+<p class='green'><%= @current_user.customer_id%></p>
+
+<b>Username</b><BR>
+<%=@current_user.username%></h2><BR><BR>
+
+<B>Avatar</B><BR><img class='img img-rounded profile-img' src='<%=@current_user.avatar.url%>'/></h2><BR> <BR>
+<b>Email</b><BR>
+<%=@current_user.email%></h2><BR><BR>
+
+<b>Gender</b><BR>
+
+<%case @current_user.gender
+when "M"
+  gender="Male"
+when "F"
+  gender="Female"
+when "N"
+  gender="Prefer Not to say"
+when "T"
+  gender="Third Gender"
+else 
+  gender="Dont know"
+end%>
+<%=gender%><BR><BR>
+<b>Firstname</b><BR>
+<%=@current_user.firstname%></h2><BR><BR>
+
+<b>Lastname</b><BR>
+<%=@current_user.lastname%></h2><BR><BR>
+
+<b>Address</b><BR>
+<%=@current_user.address%></h2><BR><BR>
+
+<b>City</b><BR>
+<%=@current_user.city%></h2><BR><BR>
+
+<b>Pincode</b><BR>
+<%=@current_user.pin%></h2><BR><BR>
+
+<b>Country</b><BR>
+<%=@current_user.country%></h2><BR><BR>
+
+<b>Mobile#</b><BR>
+<%=@current_user.mobile%></h2><BR><BR>
+
+
+<%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, users_edit_path  , class: "btn btn-info" %>

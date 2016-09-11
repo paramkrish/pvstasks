@@ -1,0 +1,10 @@
+<% provide(:title, "Preferences") %>
+<h2>Preferences</h2>
+<hr>
+<b>Username</b><BR>
+<%=@current_user.username%></h2><BR><BR>
+
+<B>Avatar</B><BR> <span class='img img-circle'><img src='<%=@current_user.avatar.url%>'/></span></h2><BR> <BR>
+<b>Email</b><BR>
+<%=@current_user.email%></h2><BR><BR>
+<b>Change Password</b><BR>

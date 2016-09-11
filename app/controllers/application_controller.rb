@@ -3,20 +3,44 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_user
-  	unless session[:user_id]  
-  		store_location		
-  		redirect_to(:controller => 'sessions', :action => 'login')
-  		return false
-  	else
-      # set current_user by the current user object
-      @current_user = User.find session[:user_id] 
-  		return true
-  	end
+    if ! session[:current_user_id]
+        store_location  
+        flash[:danger]  = "Your Login is failed"
+        redirect_to(:controller => 'sessions', :action => 'login')
+        return false
+
+    elsif session[:expires_at] < Time.current 
+
+          flash[:danger]  = "Your session is expired, Please login again "
+          redirect_to(:controller => 'sessions', :action => 'login')
+          return false
+      
+    else      
+          @current_user = User.find session[:current_user_id] 
+          return true
+    end
+
   end
+
+
+
+  # def authenticate_user1
+  # 	unless session[:current_user_id]  or session[:expires_at] > Time.current
+  # 		store_location	
+  #     flash[:danger]	= "Your session is expired or Login failed"
+  # 		redirect_to(:controller => 'sessions', :action => 'login')
+  # 		return false
+  # 	else
+  #     # set current_user by the current user object
+  #     @current_user = User.find session[:current_user_id] 
+  #     #session[:expires_at] = Time.current + 5.minutes
+  # 		return true
+  # 	end
+  # end
 
   #This method for prevent user to access Signup & Login Page without logout
   def save_login_state
-    if session[:user_id]
+    if session[:current_user_id]
            # redirect_to(:controller => 'sessions', :action => 'home')
       return false
     else

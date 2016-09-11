@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902073811) do
+ActiveRecord::Schema.define(version: 20160910055608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(version: 20160902073811) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string   "username"
     t.text     "comments"
     t.integer  "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "user_id"
     t.index ["task_id"], name: "index_comments_on_task_id", using: :btree
   end
 
@@ -52,12 +52,13 @@ ActiveRecord::Schema.define(version: 20160902073811) do
     t.string   "title"
     t.string   "remarks"
     t.date     "due_date"
-    t.string   "owner"
     t.integer  "status"
     t.integer  "priority"
     t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "numviews",    default: 0
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,6 +68,16 @@ ActiveRecord::Schema.define(version: 20160902073811) do
     t.string   "salt"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "avatar"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.text     "address"
+    t.string   "city"
+    t.string   "country"
+    t.string   "customer_id"
+    t.string   "mobile"
+    t.integer  "pin"
+    t.string   "gender"
   end
 
   add_foreign_key "comments", "tasks"

@@ -38,6 +38,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'jquery-turbolinks'
 gem 'has_scope'
 gem 'ckeditor'
+gem 'carrierwave'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,6 +1,9 @@
-  <div>
+
+  <div
+    <h4>New Comment</h4>
+
       <%= form_for([@task,@task.comments.build], :remote => true) do |f| %>
-		<%= f.hidden_field :username, :value => @current_user.username %>
+		<%= f.hidden_field :user_id, :value => @current_user.id %>
         <p> <%= f.text_area :comments, :class => 'form-control'%> </p><BR>
         <%= f.submit :id=> 'comment_submit', :value=>"Submit" , :class => 'btn btn-success' %>
       <% end %>

@@ -1,15 +1,20 @@
 class User < ActiveRecord::Base
   attr_accessor :password
+  has_many :tasks
+  mount_uploader :avatar, AvatarUploader
+
+  before_save :encrypt_password, :downcase_fields
+  after_save :clear_password
 
   EMAIL_REGEX = /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\z/i
-  validates :username, :presence => { :message => "is taken already"  } , :uniqueness => { :message => "not unique"  }, :length => { :in => 3..20 , :message => " is just too short !!" }
+  USERNAME_REGEX = /[A-Z]+/i
+  #validates :customer_id , :uniqueness => true
+  validates :username, :presence => { :message => "is taken already"  } , :uniqueness => { :message => "not unique"  }, :length => { :in => 3..20 , :message => "keep it between 1 and 20 characters only." }
+  validates_format_of :username, :with => /\A(\w+)\Z/i
   validates :email, :presence => { :message => "cant be blank" }, :uniqueness => true, :format => EMAIL_REGEX
-  validates :password, :confirmation => { :message => "Passwords confirmation did not match"  }
+  validates :password, :confirmation => true
   validates_length_of :password, :in => 6..20, :on => :create
-
-
-  	before_save :encrypt_password
-	after_save :clear_password
+  validates :pin, numericality: { less_than_or_equal_to: 999999 }
 
 def encrypt_password
   if password.present?
@@ -17,6 +22,12 @@ def encrypt_password
     self.encrypted_password= BCrypt::Engine.hash_secret(password, salt)
   end
 end
+
+def downcase_fields
+  self.username.downcase!
+  self.email.downcase!
+end
+
 
 def clear_password
   self.password = nil

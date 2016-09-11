@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-  before_action :authenticate_user
+  before_action :authenticate_user, :except => [:index , :show ]
   before_action :save_login_state
 
   helper_method :closed_tasks, :update_task
@@ -31,34 +31,31 @@ class TasksController < ApplicationController
 
   def index
   @current_view = "All Tasks"
+
+  @current_user = User.find_by_id(session[:current_user_id])
   @tasks = Task.where(nil) # creates an anonymous scope
   @tasks = @tasks.status(params[:status]) if params[:status].present?
-  @tasks = @tasks.owner(params[:owner]) if params[:owner].present?
+  @tasks = @tasks.user_id(params[:user_id]) if params[:user_id].present?
   @tasks = @tasks.priority(params[:priority]) if params[:priority].present?
   if params[:status].present?
     params[:status] == "0" ? @current_view = "Open Tasks" : @current_view = "Closed Tasks"
   end
   #@tasks = @tasks.category_id(params[:category_id]) if params[:category_id].present?
-  if params[:owner].present?
-    case params[:owner]
-    when "Vidhya"
-      @current_view = "Vidhya's Tasks" 
-    when "Param"
-      @current_view = "Param's Tasks" 
-    when "Shravan"
-      @current_view = "Shravan's Tasks" 
+    if params[:user_id].present?
+      @current_view = "My Tasks" 
     else
       @current_view = "All Tasks" 
     end
   end
-  end
-
-
 
   def show
     @task_id = params[:id].split('-').first or not_found
-    @task = Task.find(@task_id) or not_found
-  
+    @task = Task.find(@task_id) or not_found    
+    @task.update_attributes("numviews" => @task.numviews+1)
+    if (session[:current_user_id])
+     @current_user = User.find(session[:current_user_id])
+    end
+
 
   end
 
@@ -95,7 +92,7 @@ class TasksController < ApplicationController
   end
 
   def user_params
-    params.require(:task).permit(:title,:remarks,:category_id,:due_date,:owner,:priority,:status)
+    params.require(:task).permit(:title,:remarks,:category_id,:user_id,:due_date,:priority,:status)
   end
 
 end

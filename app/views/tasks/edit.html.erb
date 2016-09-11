@@ -19,8 +19,8 @@
 
 			<table class='table table-condensed'>
 			<tr><td>
-			<%= f.label :owner %><br>
-			<%= f.select :owner, ['Vidhya', 'Param', 'Shravan'] %>
+			<%= f.label :user_id %><br>
+						<%= f.select :user_id, User.all.collect { |x| [x.username,x.id] }, { :include_blank => "Select One" } , { :class => 'form-control' } %>
 			</td>
 			<td>
 			<%= f.label :priority %><br>

@@ -30,7 +30,7 @@ body {     font-family: Verdana;}
 .green { color:green;}
 .quickhref { color:#DDD; }
 .quickhref:hover { color:#FFF; }
-.starter-template {     margin: 40px; }
+.starter-template {     margin: 40px; min-height:700px;}
 .container1 { 
     margin-top: 50px; }
 
@@ -43,8 +43,7 @@ body {     font-family: Verdana;}
     border-radius: 5px;
     }
 
-.glyphicon { font-size:15px;}
-
+.nicon { font-size:20px;}
 .navbar-icon { font-size:30px;}
 div {     font-weight: normal;}
 li.navbar-txt a{
@@ -58,14 +57,23 @@ li.navbar-txt a:hover { background:#5cb85c !important;}
 a.action_link { color: #999; text-decoration:none;}
 a.action_link:hover { color: red;text-decoration:none; }	
 .task_actions_lists li a:hover { color: #000; }	
-
+.login_box { 
+margin-right: 30px;    margin-right: 40px;
+    border: 1px solid #DDD;
+    padding: 0px 10px;
+    background: #dbe6cf;
+    border-radius: 4px;
+    }
 
 .footer {     padding: 10px 12px;
     background: #DDD;
     height: 40px;
     bottom: 0px;
-    width: 100%;}
+    width: 100%;
+    }
 
 .footer > div {     text-align: center;
     color: #999;
     margin-bottom: 8px;}
+
+.profile-img { width:150px;}

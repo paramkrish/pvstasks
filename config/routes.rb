@@ -8,16 +8,19 @@ Rails.application.routes.draw do
   match "logout" => "sessions#logout", :via => [:get], :as => 'sessions_logout'
   match "home" => "sessions#home", :via => [:get], :as => 'sessions_home'
   match "profile" => "sessions#profile", :via => [:get], :as => 'sessions_profile'
-  match "setting" => "sessions#setting", :via => [:get], :as => 'sessions_setting'
+  match "preferences" => "sessions#preferences", :via => [:get], :as => 'sessions_preferences'
 
-  match "users" => "users#new" , :via => [:get], :as => 'signup_new'
+  match "profile/edit" => "users#edit", :via => [:get], :as => 'users_edit'
+  match 'clearSession' => 'users#session_clear', :via => [:get], :as => :session_clear
 
+  #match "profile/edit" => "users#edit", :via => [:post], :as => 'profile_edit'
   #match 'gallery_:id' => 'gallery#show', :via => [:get], :as => 'gallery_show'
 
+  get "/users" => redirect("/profile")
   get 'sessions/login'
   get 'sessions/home'
   get 'sessions/profile'
-  get 'sessions/setting'
+  get 'sessions/preferences'
   get 'users/new'
 
   resources :categories
@@ -39,6 +42,8 @@ Rails.application.routes.draw do
 
   get '/tasks/:id/:title' => 'tasks#show', :as => :task_with_title
   get '/categories/:id/:name' => 'categories#show', :as => :category_with_name
+
+
 
   get 'categories/index'
 

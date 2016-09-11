@@ -4,13 +4,14 @@ class Task < ApplicationRecord
 	default_scope -> { order('created_at DESC') }
 
 	scope :status, -> (status) { where status: status }
-	scope :owner, -> (owner) { where owner: owner }
+	scope :user_id, -> (user_id) { where user_id: user_id }
 	scope :priority, -> (priority) { where priority: priority }
 	scope :category_id, -> (category_id) { where category_id: category_id }
 	scope :close, -> (close) { where status: 0 } 
   	scope :reopen, -> (reopen) { where status: 1 }
 
 	belongs_to :category
+	belongs_to :user
 	validates :title, presence: true, uniqueness: true
 	validates_length_of :title, :in => 5..100
 

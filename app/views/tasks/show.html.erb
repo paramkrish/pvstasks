@@ -8,6 +8,7 @@
   <div class="panel-heading">
     <span class='pull-left'><h4><%= @task.title %></h4></span>
     <span class="text-right"><h4> <%= @pr %></h4></span>
+    <span class='label label-default'>Views <%= @task.numviews %></span>
   </div>
   <div class="panel-body">
 
@@ -16,8 +17,9 @@
 <% else %>
 <BR><div class='task'>Category Id: Unassigned</div>
 <% end %>
-<BR><div class='bold'>Owner</div>
-<div><%= link_to @task.owner, tasks_path(:owner => @task.owner) %></div>
+<BR><div class='bold'>Assigned To</div>
+<% @user = User.where("id" => @task.user_id).first %>    
+<div><%= link_to "#{@user.username}", tasks_path(:user_id => @task.user_id) %></div>
 <% if @task.remarks.size > 0 %>
 <BR><BR>
 <div class='task bold'>Remarks
@@ -32,6 +34,8 @@
 <% end %>
   </div>
 </div>
+
+<% if @current_user %>
 <BR>
 
 <%= link_to  "<span class=' glyphicon glyphicon-chevron-left'></span>Go Back".html_safe, tasks_path  , class: "btn btn-default" %>
@@ -42,8 +46,10 @@
 <%= link_to "reopen" , toggletaskstatus_task_path(@task), method: :put , title:'Click to toggle status of this task' , class:"btn btn-warning" %>
 <%end%>
 <%= link_to  "<span class=' glyphicon glyphicon-trash'></span> Delete".html_safe, @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
+<BR><BR>
 
-<BR><BR><BR>
+<%end%>
+<BR>
 <h4>Comments</h4>
 <div id='comments'>
 <% if @task.comments.count > 0%>
@@ -53,9 +59,13 @@
   <% end %>
 </div>
 <BR>
-<HR>
-<h4>New Comment</h4>
-<%= render 'comments/form' %>
+
+<% if @current_user %>
+  <HR>
+  <%= render 'comments/form' %>
+<%else%>
+    <div>Please <a href="/login">login</a> to comment</div>
+<%end%>
 
   <script type="text/javascript">
     $(function() {    	

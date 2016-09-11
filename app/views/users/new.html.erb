@@ -12,7 +12,9 @@
 
 <div class='well'><h1>Sign Up</h1></div><BR>
 <div class="Sign_Form col-md-3">
-  <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
+  <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}, :html => {:multipart => true}  ) do |f| %>
+
+    <%= f.hidden_field :customer_id %>
     <p> Username:</br> <%= f.text_field :username, :class => 'form-control'%> </p>
     <p> Email:</br> <%= f.text_field :email, :class => 'form-control'%> </p>
     <p> Password:</br> <%= f.password_field :password , :class => 'form-control'%></p>
