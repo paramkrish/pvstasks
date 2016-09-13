@@ -20,6 +20,18 @@ class UsersController < ApplicationController
     #@user.avatar = File.open('somewhere')    
     if @user.save
       flash[:success] = "You signed up successfully"
+      from = Email.new(email: 'Brakki Support <donot_reply@brakki.com>')
+      subject = "New User '#{@user.username}' has signed up just now"
+      to = Email.new(email: 'mkparam@gmail.com')
+      content = Content.new(type: 'text/plain', value: 'Hello !!')
+      mail = Mail.new(from, subject, to, content)
+
+      sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+      response = sg.client.mail._('send').post(request_body: mail.to_json)
+      puts response.status_code
+      puts response.body
+      puts response.headers
+
       redirect_to users_new_path
     else
       render 'new'
