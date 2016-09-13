@@ -28,9 +28,10 @@
             <li class='categories'><a href="/categories">CATEGORIES</a></li>
           </ul>
           <ul class="nav navbar-nav pull-right">
+            <% if false %>
             <li class='tasks status'><a title='All Closed Tasks' href="/tasks?status=1" class='glyphicon glyphicon-eye-close navbar-icon'></a></li>
             <li><a href="/tasks?status=0" title='All Open Tasks' class='glyphicon glyphicon-eye-open navbar-icon'></a></li>
-            
+            <%end%>
 
             <% if @current_user == nil %>            
             <li><a title='SignUp' href="/signup"><span class='glyphicon glyphicon-copy'></span></a></li>           
@@ -41,9 +42,12 @@
 
             <%c_user = @current_user.username %>
             <%c_avatar_file = @current_user.avatar.url %>
+          <% if false %>
+
             <li class='navbar-txt'><a title='Tasks for Param' href="/tasks?user_id=<%=@current_user.id%>" class='label label-default'>My Tasks</a></li>            
+          <%end%>
             <li id='usertab' style='width:300px;text-align: center;padding: 0px;color:#5bff5c;'>
-            <a title='Profile' href="/profile" style='padding:10px'><img src='<%=c_avatar_file%>' class='img img-rounded' style='width:30px;'/> 
+            <a title='Profile' href="/profile"><img src='<%=c_avatar_file%>' class='img img-rounded' style='width:30px;'/> 
             <%=c_user%></a></span>
             </li>           
             <li><a href="/profile" class='glyphicon glyphicon-cog nicon'></a></li>             

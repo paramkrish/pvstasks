@@ -1,6 +1,7 @@
 <% provide(:title, "Profile") %>
 <h2>Profile</h2>
 <hr>
+<div class='main_contents'>
 <b>Customer ID</b>
 <p class='green'><%= @current_user.customer_id%></p>
 
@@ -47,5 +48,6 @@ end%>
 <b>Mobile#</b><BR>
 <%=@current_user.mobile%></h2><BR><BR>
 
-
+</div>
+<BR>
 <%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, users_edit_path  , class: "btn btn-info" %>

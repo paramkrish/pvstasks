@@ -39,6 +39,7 @@ gem 'jquery-turbolinks'
 gem 'has_scope'
 gem 'ckeditor'
 gem 'carrierwave'
+gem 'sendgrid-ruby'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

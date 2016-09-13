@@ -21,7 +21,12 @@
 div#datetimepicker {position: relative; }
 table td {     padding: 3px !important;vertical-align: middle !important;}
 
-body {     font-family: Verdana;}
+body { font-family: Verdana; background-color: #e6e6e6; }
+hr {     border-top: 1px solid #337ab7; }
+.page-header { border-bottom: 1px solid #337ab7; }
+.main_contents {     background: #FFF;
+    padding: 18px;
+    border-radius: 5px; }
 
 .bold { font-weight:bold;}
 .red { color:red;}
@@ -30,18 +35,12 @@ body {     font-family: Verdana;}
 .green { color:green;}
 .quickhref { color:#DDD; }
 .quickhref:hover { color:#FFF; }
-.starter-template {     margin: 40px; min-height:700px;}
+.starter-template {   min-height:500px;margin-bottom:100px;}
 .container1 { 
     margin-top: 50px; }
 
  #main-container1 {     min-height: 1000px; }
 
-.edit_task, .new_task, .new_category, .edit_category {
-    padding: 20px;
-    background: #DDD;
-    border: 1px solid #AAA;
-    border-radius: 5px;
-    }
 
 .nicon { font-size:20px;}
 .navbar-icon { font-size:30px;}
@@ -77,3 +76,23 @@ margin-right: 30px;    margin-right: 40px;
     margin-bottom: 8px;}
 
 .profile-img { width:150px;}
+
+
+
+.navbar-inverse {
+    background-color: #fff;
+    border-color: #337ab7;
+    }
+
+.navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 6px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color:#000; }
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus { color: #337ab7; }
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #337ab7;}

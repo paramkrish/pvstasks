@@ -1,73 +1,109 @@
 <% provide(:title, "Show Task") %>
-<% if @task.title %>
 
-<% @task.priority == 1 ? @pr = "HIGH" : @task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
-<% @task.priority == 1 ? color = "red" : @task.priority == 2 ? color = "orange" : color = "grey" %>
+    <div class='pull-right' style='background: #FFF;
+    position: absolute;
+    right: 0px;
+    border: 1px solid #DDD;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;    width: 250px;'>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <span class='pull-left'><h4><%= @task.title %></h4></span>
-    <span class="text-right"><h4> <%= @pr %></h4></span>
-    <span class='label label-default'>Views <%= @task.numviews %></span>
-  </div>
-  <div class="panel-body">
+      <div style='background: #337ab7;
+        padding: 10px 30px;
+    color: #FFF;'>Transaction History</div>
+        <div style='    height: 500px;overflow: scroll;'>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+      </div>
+    </div>
+    <div>
+          <% if @task.title %>
 
-<% if @task.category_id %>
-<div class='task bold'>Category </div><div><%= link_to @task.category.name, categories_path %></div>
-<% else %>
-<BR><div class='task'>Category Id: Unassigned</div>
-<% end %>
-<BR><div class='bold'>Assigned To</div>
-<% @user = User.where("id" => @task.user_id).first %>    
-<div><%= link_to "#{@user.username}", tasks_path(:user_id => @task.user_id) %></div>
-<% if @task.remarks.size > 0 %>
-<BR><BR>
-<div class='task bold'>Remarks
-<div style='padding:10px;border:1px solid #DDD;border-radius: 5px;background:#f9f9f9;margin-top:10px;'><%= @task.remarks.html_safe %></div>
-</div>
-<%end%>
-<hr>
-  <div>
-  	<span class='label label-default'>Created at : <%= @task.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
-  	<span class='label label-default pull-right'>Last Updated at : <%= @task.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
-  </div>
-<% end %>
-  </div>
-</div>
+          <% @task.priority == 1 ? @pr = "HIGH" : @task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
+          <% @task.priority == 1 ? color = "red" : @task.priority == 2 ? color = "orange" : color = "grey" %>
 
-<% if @current_user %>
-<BR>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class='pull-left'><h4><%= @task.title %></h4></span>
+              <span class="text-right"><h4> <%= @pr %></h4></span>
+              <span class='label label-default'>Views <%= @task.numviews %></span>
+            </div>
+            <div class="panel-body">
 
-<%= link_to  "<span class=' glyphicon glyphicon-chevron-left'></span>Go Back".html_safe, tasks_path  , class: "btn btn-default" %>
-<% if @task.status == 0 %>
-<%= link_to  "<span class=' glyphicon glyphicon-ok-sign'></span> Mark as Complete".html_safe, toggletaskstatus_task_path(@task), method: :put , title:'Mark to Complete this task'  , class: "btn btn-success" %>
-<%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, edit_task_path  , class: "btn btn-info" %>
-<%else%>
-<%= link_to "reopen" , toggletaskstatus_task_path(@task), method: :put , title:'Click to toggle status of this task' , class:"btn btn-warning" %>
-<%end%>
-<%= link_to  "<span class=' glyphicon glyphicon-trash'></span> Delete".html_safe, @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
-<BR><BR>
+          <% if @task.category_id %>
+          <div class='task bold'>Category </div><div><%= link_to @task.category.name, categories_path %></div>
+          <% else %>
+          <BR><div class='task'>Category Id: Unassigned</div>
+          <% end %>
+          <BR><div class='bold'>Assigned To</div>
+          <% @user = User.where("id" => @task.user_id).first %>    
+          <div><%= link_to "#{@user.username}", tasks_path(:user_id => @task.user_id) %></div>
+          <% if @task.remarks.size > 0 %>
+          <BR><BR>
+          <div class='task bold'>Remarks
+          <div style='padding:10px;border:1px solid #DDD;border-radius: 5px;background:#f9f9f9;margin-top:10px;'><%= @task.remarks.html_safe %></div>
+          </div>
+          <%end%>
+          <hr>
+            <div>
+            	<span class='label label-default'>Created at : <%= @task.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+            	<span class='label label-default pull-right'>Last Updated at : <%= @task.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+            </div>
+          <% end %>
+            </div>
+          </div>
 
-<%end%>
-<BR>
-<h4>Comments</h4>
-<div id='comments'>
-<% if @task.comments.count > 0%>
-  <%= render @task.comments %>
-  <% else %>
-  <span class='grey'><i>No comments added yet</i></span>
-  <% end %>
-</div>
-<BR>
+          <% if @current_user %>
+          <BR>
 
-<% if @current_user %>
-  <HR>
-  <%= render 'comments/form' %>
-<%else%>
-    <div>Please <a href="/login">login</a> to comment</div>
-<%end%>
+          <%= link_to  "<span class=' glyphicon glyphicon-chevron-left'></span>Go Back".html_safe, tasks_path  , class: "btn btn-default" %>
+          <% if @task.status == 0 %>
+          <%= link_to  "<span class=' glyphicon glyphicon-ok-sign'></span> Mark as Complete".html_safe, toggletaskstatus_task_path(@task), method: :put , title:'Mark to Complete this task'  , class: "btn btn-success" %>
+          <%= link_to  "<span class=' glyphicon glyphicon-pencil'></span> Edit".html_safe, edit_task_path  , class: "btn btn-info" %>
+          <%else%>
+          <%= link_to "reopen" , toggletaskstatus_task_path(@task), method: :put , title:'Click to toggle status of this task' , class:"btn btn-warning" %>
+          <%end%>
+          <%= link_to  "<span class=' glyphicon glyphicon-trash'></span> Delete".html_safe, @task, :method => :delete  , class: "btn btn-danger" , data: {confirm: "Are you sure?"} %>
+          <BR><BR>
 
-  <script type="text/javascript">
+          <%end%>
+          <BR>
+          <h4>Comments</h4>
+          <div id='comments'>
+          <% if @task.comments.count > 0%>
+            <%= render @task.comments %>
+            <% else %>
+            <span class='grey'><i>No comments added yet</i></span>
+            <% end %>
+          </div>
+          <BR>
+
+          <% if @current_user %>
+            <HR>
+            <%= render 'comments/form' %>
+          <%else%>
+              <div>Please <a href="/login">login</a> to comment</div>
+          <%end%>
+      </div>
+
+
+<script type="text/javascript">
     $(function() {    	
     	$("ul.navbar-nav li").removeClass("active");
     	$("li.tasks.status").addClass("active");    	

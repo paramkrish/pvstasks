@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  require 'sendgrid-ruby'
+  include SendGrid
 
   before_action :authenticate_user, :except => [:index , :show ]
   before_action :save_login_state
@@ -18,6 +20,19 @@ class TasksController < ApplicationController
 
     if @task.save
       flash[:success] =  "New Task <strong>'#{@task.title}'</strong> is created successfully"
+
+      from = Email.new(email: 'Brakki Support <donot_reply@brakki.com>')
+      subject = "New Task '#{@task.title}' is created successfully by "+session[:current_username]+' !'
+      to = Email.new(email: 'mkparam@gmail.com')
+      content = Content.new(type: 'text/plain', value: 'Hello !!')
+      mail = Mail.new(from, subject, to, content)
+
+      sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+      response = sg.client.mail._('send').post(request_body: mail.to_json)
+      puts response.status_code
+      puts response.body
+      puts response.headers
+
       redirect_to tasks_path
     else
       render "new"
@@ -30,6 +45,8 @@ class TasksController < ApplicationController
   end
 
   def index
+  flash.discard
+
   @current_view = "All Tasks"
 
   @current_user = User.find_by_id(session[:current_user_id])
