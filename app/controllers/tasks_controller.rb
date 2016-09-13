@@ -21,7 +21,8 @@ class TasksController < ApplicationController
     if @task.save
       flash[:success] =  "New Task <strong>'#{@task.title}'</strong> is created successfully"
 
-      from = Email.new(email: 'Brakki Support <donot_reply@brakki.com>')
+      from = Email.new(email: 'donot_reply@brakki.com', name: "Brakki")
+      
       subject = "New Task '#{@task.title}' is created successfully by "+session[:current_username]+' !'
       to = Email.new(email: 'mkparam@gmail.com')
       content = Content.new(type: 'text/plain', value: 'Hello !!')

@@ -12,7 +12,7 @@ class Task < ApplicationRecord
 
 	belongs_to :category
 	belongs_to :user
-	validates :title, presence: true, uniqueness: true
+	validates :title, presence: true
 	validates_length_of :title, :in => 5..100
 
 

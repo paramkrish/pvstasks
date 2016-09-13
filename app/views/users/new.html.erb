@@ -1,12 +1,12 @@
-<% provide(:title, "New Sign Up") %>
+<% provide(:title, "New User Sign Up") %>
   <% if @user.errors.any? %>
-  <div class='alert alert-danger'>
-    <strong> Error(s) : </strong> 
-    <% for message_error in @user.errors.full_messages %>
-      <li>* <%= message_error %></li>
-    <% end %>
-    </ul>
-    </div>
+    <div class='alert alert-danger'>
+      <strong> Error(s) : </strong> 
+      <% for message_error in @user.errors.full_messages %>
+        <li>* <%= message_error %></li>
+      <% end %>
+      </ul>
+      </div>
   <% end %>
 
 
@@ -14,7 +14,7 @@
 
     <div class='page-header'><h1>Sign Up</h1></div>
     <div class="Sign_Form main_contents">
-      <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}, :html => {:multipart => true}  ) do |f| %>
+      <%= form_for(:user, :url => {:controller => 'users', :action => 'create'} ) do |f| %>
 
         <%= f.hidden_field :customer_id %>
         <p> Username:</br> <%= f.text_field :username, :class => 'form-control'%> </p>

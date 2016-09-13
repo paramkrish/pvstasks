@@ -1,4 +1,6 @@
 class UsersController < ApplicationController 
+  require 'sendgrid-ruby'
+  include SendGrid
 
 
   def new
@@ -13,6 +15,7 @@ class UsersController < ApplicationController
     today = Time.now.to_i.to_s
     random_customer_id = ( [*('A'..'Z'),*('1'..'9')]-%w(0 1 I O)).sample(6).join
     @user = User.new(user_params)
+    @user.pin = 0
     @user.customer_id = random_customer_id+today
     #@user.update_attributes(:customer_id => random_customer_id+today ) 
 
@@ -63,6 +66,7 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
 
 
   def user_params
