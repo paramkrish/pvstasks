@@ -19,25 +19,41 @@ class TasksController < ApplicationController
     @task.update_attributes(:status =>0) 
 
     if @task.save
-      flash[:success] =  "New Task <strong>'#{@task.title}'</strong> is created successfully"
 
-      from = Email.new(email: 'donot_reply@brakki.com', name: "Brakki")
-      
-      subject = "New Task '#{@task.title}' is created successfully by "+session[:current_username]+' !'
-      to = Email.new(email: 'mkparam@gmail.com')
-      content = Content.new(type: 'text/plain', value: 'Hello !!')
-      mail = Mail.new(from, subject, to, content)
+        @tracking = Tracking.new
+        @tracking.update_attributes(:user_id => session[:current_user_id] , :task_id => @task.id, :change => "Created the Task") 
+        @tracking.save
+        @assigned_to_user = User.where(:id => @task.user_id).first
+        task_title = @task.title.html_safe.gsub ' ','-'
+        task_title = task_title.sub '-$',''
+        task_title_link = Rails.application.config.web_url + "/tasks/" + @task.id.to_s + "/" + task_title
+        flash[:success] =  "New Task <strong>'#{@task.title}'</strong> is created successfully "
 
-      sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-      response = sg.client.mail._('send').post(request_body: mail.to_json)
-      puts response.status_code
-      puts response.body
-      puts response.headers
+          email = SendGrid::Mail.new
+          email.from = SendGrid::Email.new(email: 'hello@brakko.com', name: "Brakko")
 
-      redirect_to tasks_path
+          per = SendGrid::Personalization.new
+          per.to = SendGrid::Email.new(email: "mkparam@gmail.com", name: "Param Krish")
+          per.substitutions = SendGrid::Substitution.new(key: "%username%", value: session[:current_username])
+          per.substitutions = SendGrid::Substitution.new(key: "%taskname%", value:  @task.title )
+          per.substitutions = SendGrid::Substitution.new(key: "%assigned_to%", value: @assigned_to_user.username)
+          per.substitutions = SendGrid::Substitution.new(key: "%button_url%", value: task_title_link )
+          email.personalizations = per
+          email.template_id = "dbcbd621-e3ef-4e8a-8fae-d49c63803cb7"
+
+            sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+            response = sg.client.mail._('send').post(request_body: email.to_json)
+
+            puts response.status_code
+            puts response.body
+            puts response.headers
+
+        redirect_to tasks_path
+
     else
       render "new"
     end
+
   end
 
 
@@ -49,6 +65,7 @@ class TasksController < ApplicationController
   flash.discard
 
   @current_view = "All Tasks"
+
 
   @current_user = User.find_by_id(session[:current_user_id])
   @tasks = Task.where(nil) # creates an anonymous scope
@@ -81,6 +98,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     #if @task.update_attributes(:name => "New") 
     if @task.update_attributes(user_params)
+
+        @tracking = Tracking.new
+        @tracking.update_attributes(:user_id => session[:current_user_id] , :task_id => @task.id, :change => "Task Updated") 
+        @tracking.save
+
       flash[:success] = "Task <strong>'#{@task.title}'</strong> is Updated."
       redirect_to task_path
     else
@@ -93,6 +115,11 @@ class TasksController < ApplicationController
     @task.status == 1 ? @task.status=0 : @task.status=1
     @task.status == 1 ? @task_status= " marked COMPLETE." : @task_status= "RE-OPENED"
     @task.save
+
+        @tracking = Tracking.new
+        @tracking.update_attributes(:user_id => session[:current_user_id] , :task_id => @task.id, :change => "Task status changed to " + @task_status) 
+        @tracking.save
+
         flash[:success] = "Task <strong>'#{@task.title}'</strong> is " + " #{@task_status}"
     redirect_to tasks_path
   end
@@ -108,6 +135,16 @@ class TasksController < ApplicationController
     flash[:danger] = "Task <strong>'#{@task.title}'</strong> is deleted."
     redirect_to tasks_path
   end
+
+  def tracking
+    @tracking = Tracking.where(:task_id=> params[:id]) or not_found
+    render json: @tracking
+  end
+
+  def tracking_params
+    params.require(:tracking).permit(:task_id,:user_id,:change)
+  end
+
 
   def user_params
     params.require(:task).permit(:title,:remarks,:category_id,:user_id,:due_date,:priority,:status)

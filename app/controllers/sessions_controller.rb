@@ -33,6 +33,7 @@ class SessionsController < ApplicationController
 			session[:expires_at] = Time.current + 24.hours
 		
 			flash[:success] = "Welcome again, #{authorized_user.username} logged in"
+			authorized_user.update_attributes(:status => 1)
 			redirect_back_or root_path || redirect_to(:action => 'home')
 
 

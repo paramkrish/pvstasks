@@ -5,13 +5,41 @@
   <div class="panel-heading">
     <span><h4><%= @category.name.upcase %></h4></span>
     <span><p><%= @category.desc %></p></span>
+			<span class='label label-default'>Created at : <%= @category.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+			<span class='label label-default pull-right'>Last Updated at : <%= @category.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
+    
   </div>
 
   <div class="panel-body">
-		<div>
-			<span class='label label-default'>Created at : <%= @category.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
-			<span class='label label-default pull-right'>Last Updated at : <%= @category.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
-		</div>
+		    <div class='well'>
+			    <% if @category.tasks.category_id(@category.id).count > 0 %>		    	
+			    	<h4><u>TASKS</u></h4>
+			    	<% else %>No Tasks in this category
+			    <%end%>
+				
+				<% @category.tasks.category_id(@category.id).each do |t| %>
+
+
+					<% t_title = t.title.html_safe.gsub ' ','-' %>
+					<% t_title = t_title.sub '-$','' %>
+					<% t.status == 1 ? @title_color = "grey" : @title_color = "black" %>
+					<% t.status == 0 ? t_status = "OPEN" : t_status = "COMPLETED" %>
+					<% t.priority == 3 ? @icon = "arrow-down": @icon = "arrow-up" %>
+					<% t.priority == 1 ? @color = "red" : t.priority == 2 ? @color = "orange" : @color = "grey" %>
+					<% t.priority == 1 ? @pr = "HIGH": t.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>				
+					<% t.status == 0 ? t_status_color = "label-warning" : t_status_color = "label-success" %>
+					<% t.status == 1 ? @color = "green" : @color = @color %>					
+					<% t.status == 1 ? @icon = "check" : @icon = @icon %>
+
+					<div style='    padding: 3px 16px;background: #FFF;border-radius: 10px;margin: 10px;'>
+						<span title='<%=@pr%> PRIORITY' class='glyphicon glyphicon-<%=@icon%> <%=@color%>'></span>
+						<span class='label label-default <%=t_status_color%>'><%=t_status%></span>
+						<a class='list-group-item-text <%=@title_color%>' href="/tasks/<%=t.id%>/<%=t_title %>"><%=t.title%></a></span>			
+						<span class='pull-right glyphicon glyphicon-calendar'> <%=t.due_date.strftime("%d-%b-%Y")%></span>
+					</div>
+				<%end%>
+			</div>
+
 	</div>
 <% end %>
 </div>

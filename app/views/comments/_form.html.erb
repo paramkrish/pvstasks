@@ -1,5 +1,5 @@
 
-  <div>
+  <div class='main_contents'>
 
       <%= form_for([@task,@task.comments.build], :remote => true) do |f| %>
 		<%= f.hidden_field :user_id, :value => @current_user.id %>

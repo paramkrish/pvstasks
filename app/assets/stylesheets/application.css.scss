@@ -21,7 +21,8 @@
 div#datetimepicker {position: relative; }
 table td {     padding: 3px !important;vertical-align: middle !important;}
 
-body { font-family: Verdana; background-color: #e6e6e6; }
+body { font-family: Verdana; background-color: #e6e6e6; 
+    font-size: 12px;}
 hr {     border-top: 1px solid #337ab7; }
 .page-header { border-bottom: 1px solid #337ab7; }
 .main_contents {     background: #FFF;
@@ -36,8 +37,6 @@ hr {     border-top: 1px solid #337ab7; }
 .quickhref { color:#DDD; }
 .quickhref:hover { color:#FFF; }
 .starter-template {   min-height:500px;margin-bottom:100px;}
-.container1 { 
-    margin-top: 50px; }
 
  #main-container1 {     min-height: 1000px; }
 
@@ -57,11 +56,12 @@ a.action_link { color: #999; text-decoration:none;}
 a.action_link:hover { color: red;text-decoration:none; }	
 .task_actions_lists li a:hover { color: #000; }	
 .login_box { 
-margin-right: 30px;    margin-right: 40px;
-    border: 1px solid #DDD;
-    padding: 0px 10px;
-    background: #dbe6cf;
+
+    border: 1px solid #31708f;
+        padding: 4px 10px;
+    background: #337ab7;
     border-radius: 4px;
+    color:#FFF;
     }
 
 .footer {     padding: 10px 12px;

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-
   #match ':controller(/:action(/:id))(.:format)'
   match "signup" => "users#new",  :via => [:get], :as => 'users_new'
   match "login"  => "sessions#login", :via => [:get], :as => 'sessions_login'
@@ -12,6 +10,7 @@ Rails.application.routes.draw do
 
   match "profile/edit" => "users#edit", :via => [:get], :as => 'users_edit'
   match 'clearSession' => 'users#session_clear', :via => [:get], :as => :session_clear
+  match 'api/:id/tracking' => 'tasks#tracking', :via => [:get], :as => 'tasks_tracking'
 
   #match "profile/edit" => "users#edit", :via => [:post], :as => 'profile_edit'
   #match 'gallery_:id' => 'gallery#show', :via => [:get], :as => 'gallery_show'

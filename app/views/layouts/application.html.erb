@@ -27,15 +27,15 @@
             <li class="tasks"><a href="/tasks">TASKS</a></li>
             <li class='categories'><a href="/categories">CATEGORIES</a></li>
           </ul>
-          <ul class="nav navbar-nav pull-right">
+          <ul class="nav navbar-nav pull-right" style='    margin-bottom: -10px;'>
             <% if false %>
             <li class='tasks status'><a title='All Closed Tasks' href="/tasks?status=1" class='glyphicon glyphicon-eye-close navbar-icon'></a></li>
             <li><a href="/tasks?status=0" title='All Open Tasks' class='glyphicon glyphicon-eye-open navbar-icon'></a></li>
             <%end%>
 
             <% if @current_user == nil %>            
-            <li><a title='SignUp' href="/signup"><span class='glyphicon glyphicon-copy'></span></a></li>           
-            <li><a title='Login' href="/login"><span class='glyphicon glyphicon-log-in'></span></a></li>
+            <li><a title='SignUp' href="/signup"><span class='glyphicon glyphicon-copy nicon'></span></a></li>           
+            <li><a title='Login' href="/login"><span class='glyphicon glyphicon-log-in nicon'></span></a></li>
 
             <%else%>
 
@@ -62,20 +62,21 @@
       </div>
     </nav>
 
-    <div class="container" style='margin-top:7%'>
-      <% if !@current_user.nil? %>
-
-      <div class='pull-right login_box'>
-      You have logged in as <img src='<%=c_avatar_file%>' class='img img-rounded' style='width:30px;'/></span> <i><B><%=c_user%></B></i> </div>
-      <%end%>
-      <div>Session <%=session.id%></div>
+    <div class="container" style='margin-top:50px;    min-height: 700px;'>
         <div class="starter-template">
+          <% if !@current_user.nil? %>
+          <div class='clearfix'></div>
+          <div class='pull-right login_box'>
+            <span>You have logged in as <img src='<%=c_avatar_file%>' class='img img-rounded' style='width:30px;'/> <i><B><%=c_user%></B></i> </span>
+          </div>
+          <%end%>
+          <div class='clearfix'></div>
           <p class="lead">
           		  <% flash.each do |name, msg| -%>
   		            <%= content_tag :div, msg.html_safe, class: 'alert alert-'+name %>
   		          <% end -%>
             </p> 
-
+            <div class='clearfix'></div>
           	     <%=yield%>        
         </div>
 

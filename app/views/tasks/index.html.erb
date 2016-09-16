@@ -31,13 +31,15 @@
 
 		<td class="table-cell"><a href="#" style='text-decoration:none;' title='<%=@label_tag%>' class='glyphicon glyphicon-<%=@icon%> <%= @color %>'></a></td>
 		<td class="table-cell"><%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title), :class => "#{@title_color}" %></td>		
-		<% if task.due_date != nil %> <td class='col-md-1 text-center'><small><div style='background: #555;font-weight: bold;color: #FFF;'><%= task.due_date.strftime("%d") %></div><div style='background: #888;color:#FAFAFA'><%= task.due_date.strftime("%b") %></div></small></td>
+		<% if task.due_date != nil %> <td class='col-md-1 text-center'><small><div style='background: #DDD;font-weight: bold;color: #999;'>
+		<%= task.due_date.strftime("%d") %>
+		<%= task.due_date.strftime("%b") %></div></small></td>
 		<%else%>
 		<td class="table-cell">-</td>
 		<%end%>
 		<% task_owner = User.where("id" => 	task.user_id).first %>
 		<% user_avatar = task_owner.avatar.url %>
-		<td class='text-center'><img src='<%=user_avatar%>' class='img img-circle' style='width:30px;'/> <%= link_to "#{task_owner.username}", tasks_path(:user_id => task.user_id), :title => task_owner, class:"label label-default" %></td>
+		<td class='text-center'><img src='<%=user_avatar%>' class='img img-rounded' style='width:30px;'/> <%= link_to "#{task_owner.username}", tasks_path(:user_id => task.user_id), :title => task_owner, class:"label label-default" %></td>
 		<td><a href='/categories/<%= task.category.id%>/<%= task.category.name.html_safe %>'><small><%= task.category.name.html_safe %></small></a></td>	
 		<td><small><%= task.created_at.in_time_zone("Asia/Calcutta").strftime("%m/%d/%y %H:%M") %></small></td>
 		<td>
