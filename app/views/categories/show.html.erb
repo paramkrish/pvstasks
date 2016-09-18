@@ -1,13 +1,13 @@
 <% provide(:title, "Category") %>
 <% if @category.name %>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">
     <span><h4><%= @category.name.upcase %></h4></span>
     <span><p><%= @category.desc %></p></span>
 			<span class='label label-default'>Created at : <%= @category.created_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
 			<span class='label label-default pull-right'>Last Updated at : <%= @category.updated_at.in_time_zone("Asia/Calcutta").strftime("%m-%b-%Y %H:%M") %></span>
-    
+
   </div>
 
   <div class="panel-body">

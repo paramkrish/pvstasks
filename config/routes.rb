@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
+
   #match ':controller(/:action(/:id))(.:format)'
   match "signup" => "users#new",  :via => [:get], :as => 'users_new'
   match "login"  => "sessions#login", :via => [:get], :as => 'sessions_login'
   match "login"  => "sessions#login_attempt", :via => [:post], :as => 'sessions_login_attempt'
   match "logout" => "sessions#logout", :via => [:get], :as => 'sessions_logout'
   match "home" => "sessions#home", :via => [:get], :as => 'sessions_home'
-  match "profile" => "sessions#profile", :via => [:get], :as => 'sessions_profile'
-  match "preferences" => "sessions#preferences", :via => [:get], :as => 'sessions_preferences'
-
+  match "profile" => "sessions#profile", :via => [:get], :as => 'sessions_profile'  
+  match "change_password" => "users#change_password", :via => [:get], :as => 'users_change_password'  
   match "profile/edit" => "users#edit", :via => [:get], :as => 'users_edit'
   match 'clearSession' => 'users#session_clear', :via => [:get], :as => :session_clear
   match 'api/:id/tracking' => 'tasks#tracking', :via => [:get], :as => 'tasks_tracking'
@@ -21,15 +21,29 @@ Rails.application.routes.draw do
   get 'sessions/profile'
   get 'sessions/preferences'
   get 'users/new'
+  get 'preferences/index'
+  get 'preferences/edit'
+  get 'preferences/update'
+  get 'users/changepassword'
+
 
   resources :categories
   resources :tasks
   resources :comments
   resources :users
+  resources :preferences
 
 
   resources :tasks do
     resources :comments
+  end
+
+  resources :users do
+    resources :preferences
+  end
+
+  resources :tasks do
+    resources :trackings
   end
 
   root to: 'tasks#index'

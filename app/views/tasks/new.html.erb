@@ -1,5 +1,5 @@
 <% provide(:title, "New Task") %>
-<div class='page-header'><h1>Create New Task</h1></div>
+<div class='page-header'><h1>New Task</h1></div>
 
 <% if @task.errors.size > 0 %>
 	<div class='alert alert-danger'>
@@ -25,8 +25,8 @@
 			<tr>
 			<td>
 			<div class="input-group input-group">
-			<%= f.label :user_id %><br>
-			<%= f.select :user_id, User.all.collect { |x| [x.username,x.id] }, { :include_blank => "Select One" } , { :class => 'form-control' } %>
+			<%= f.label :assignedto_id %><br>
+			<%= f.select :assignedto_id, User.all.collect { |x| [x.username,x.id] }, { :include_blank => "Select One" } , { :class => 'form-control' } %>
 
 			</div>
 			</td>			
@@ -52,7 +52,7 @@
 			<p>
 			<%= f.label :remarks %><br>
 			<div data-no-turbolink>
-			<%= f.text_area :remarks , :rows => 5, :class => 'form-control' %>
+			<%= f.text_area :remarks , :rows => 5, :class => 'form-control ' %>
 			</div>
 			</p>
 

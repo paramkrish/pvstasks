@@ -50,7 +50,12 @@
             <a title='Profile' href="/profile"><img src='<%=c_avatar_file%>' class='img img-rounded' style='width:30px;'/> 
             <%=c_user%></a></span>
             </li>           
-            <li><a href="/profile" class='glyphicon glyphicon-cog nicon'></a></li>             
+              <%if !@current_user.status%>
+                <%color="red"%>
+              <%else%>
+                <%color="grey"%>
+              <%end%>
+            <li><a href="/preferences" class='glyphicon glyphicon-cog nicon <%=color%>'></a></li>             
             <li><a title='Logout' href="/logout"><span class='glyphicon glyphicon-off nicon'></span></a></li>
             <%end%>
           
@@ -68,6 +73,7 @@
           <div class='clearfix'></div>
           <div class='pull-right login_box'>
             <span>You have logged in as <img src='<%=c_avatar_file%>' class='img img-rounded' style='width:30px;'/> <i><B><%=c_user%></B></i> </span>
+
           </div>
           <%end%>
           <div class='clearfix'></div>

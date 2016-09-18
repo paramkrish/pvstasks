@@ -1,0 +1,33 @@
+<% provide(:title, "Home") %>
+<div class='page-header'><h1>Preferences</h1></div>
+<%= form_for @preferences do |f| %>
+	<div class="panel panel-info">
+            <div class="panel-heading"><B>Notification Preferences</B></div>
+                <div class="panel-body">
+					<p>
+					<%= f.check_box :notifyfor_newtask %>
+					<%= f.label :notifyfor_newtask , "Notify when New tasks are created" %>
+					
+
+					</p>
+					<p>
+					<%= f.check_box :notifyfor_taskupdate%>
+					<%= f.label :notifyfor_taskupdate , "Notify when tasks are updated" %>
+					
+					</p>
+					<p>
+					<%= f.check_box :notifyfor_comment2task%>
+					<%= f.label :notifyfor_comment2task, "Notify when comments are added to the Tasks" %>
+					
+					</p>
+					<p>
+					<%= f.check_box :notifyfor_taskcomplete%>
+					<%= f.label :notifyfor_taskcomplete, "Notify when Tasks marked complete" %>				
+					</p>
+					</div>
+				</div>
+
+		<%= f.button :submit, class: "btn btn-primary" do %>
+		  <span class='glyphicon glyphicon-circle-arrow-up'></span> Submit
+		<% end %>
+<% end %>

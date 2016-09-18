@@ -12,10 +12,12 @@
   <th></th>
   <th class='col-md-5'>Task</th>
   <th class='text-center'>Due By</th>
-  <th class='text-center'>Assigned to</th>
+  <th>Assigned to</th>
   <th>Category</th>
   <th>Created On</th>
-  <th class='text-center'>Task Actions</th>
+  	<% if session[:current_user_id] %>
+		<th class='text-center'>Task Actions</th>
+	<%end%>
 <%end%>
   	<% if @tasks.each do |task| %>
 		<% task_title = task.title.html_safe.gsub ' ','-' %>
@@ -32,30 +34,32 @@
 		<td class="table-cell"><a href="#" style='text-decoration:none;' title='<%=@label_tag%>' class='glyphicon glyphicon-<%=@icon%> <%= @color %>'></a></td>
 		<td class="table-cell"><%= link_to task.title.html_safe, task_with_title_path(task, :title => task_title), :class => "#{@title_color}" %></td>		
 		<% if task.due_date != nil %> <td class='col-md-1 text-center'><small><div style='background: #DDD;font-weight: bold;color: #999;'>
-		<%= task.due_date.strftime("%d") %>
-		<%= task.due_date.strftime("%b") %></div></small></td>
+			<%= task.due_date.strftime("%d") %>
+			<%= task.due_date.strftime("%b") %></div></small></td>
 		<%else%>
-		<td class="table-cell">-</td>
+			<td class="table-cell"></td>
 		<%end%>
 		<% task_owner = User.where("id" => 	task.user_id).first %>
 		<% user_avatar = task_owner.avatar.url %>
-		<td class='text-center'><img src='<%=user_avatar%>' class='img img-rounded' style='width:30px;'/> <%= link_to "#{task_owner.username}", tasks_path(:user_id => task.user_id), :title => task_owner, class:"label label-default" %></td>
+		<td style='padding-left: 17px !important;'><img src='<%=user_avatar%>' class='img img-rounded' style='width:30px;'/> <%= link_to "#{task_owner.username}", tasks_path(:user_id => task.user_id), :title => task_owner, class:"label label-default" %></td>
 		<td><a href='/categories/<%= task.category.id%>/<%= task.category.name.html_safe %>'><small><%= task.category.name.html_safe %></small></a></td>	
 		<td><small><%= task.created_at.in_time_zone("Asia/Calcutta").strftime("%m/%d/%y %H:%M") %></small></td>
-		<td>
+		<% if session[:current_user_id] %>
+
+			<td>
 			<% task.status == 0 ? link_label = 'close' : link_label = 'reopen' %>
 			<% task.status == 0 ? btn_title = 'Mark this ticket as completed' : btn_title = 'Click to Reopen this task' %>
 			<% task.status == 0 ? btn_label = 'glyphicon glyphicon-remove-circle' : btn_label = 'glyphicon glyphicon-ok-circle' %>
 			<% task.status == 0 ? link_color = 'btn-success' : link_color = 'btn-warning' %>
 			<ul class='task_actions_lists'>
-			<% if task.status == 0 %>
-				<li><%= link_to "edit" , edit_task_url(task), title:'Click to edit this task' , class:"glyphicon glyphicon-pencil" %></li>
-			<% end %>
-			<li><%= link_to link_label , toggletaskstatus_task_path(task), method: :put , title:"#{btn_title}" , class:"#{btn_label}" %></li>
-			<li><%= link_to  "del", task, :method => :delete  , title:'Delete this task permanently' , class: "glyphicon glyphicon-trash", data: {confirm: "Are you sure?" } %></li>
-			</ul>
-			
-			</td>
+				<% if task.status == 0 %>
+					<li><%= link_to "edit" , edit_task_url(task), title:'Click to edit this task' , class:"glyphicon glyphicon-pencil" %></li>
+				<% end %>
+				<li><%= link_to link_label , toggletaskstatus_task_path(task), method: :put , title:"#{btn_title}" , class:"#{btn_label}" %></li>
+				<li><%= link_to  "del", task, :method => :delete  , title:'Delete this task permanently' , class: "glyphicon glyphicon-trash", data: {confirm: "Are you sure?" } %></li>
+				</ul>
+			</td>				
+		<%end%>
 					</tr>
 
 	<% end.empty? %>

@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
   attr_accessor :password
   has_many :tasks
+  has_one :preference
   mount_uploader :avatar, AvatarUploader
 
   before_save :encrypt_password, :downcase_fields
   after_save :clear_password
+  after_create :insert_preference_record
 
   EMAIL_REGEX = /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\z/i
   USERNAME_REGEX = /[A-Z]+/i
@@ -22,6 +24,13 @@ def encrypt_password
     self.encrypted_password= BCrypt::Engine.hash_secret(password, salt)
   end
 end
+
+def insert_preference_record
+  @user = User.last
+  preference = Preference.new(user_id:@user.id)
+  preference.save!
+end
+
 
 def downcase_fields
   self.username.downcase!

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915121114) do
+ActiveRecord::Schema.define(version: 20160917041422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20160915121114) do
     t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "preferences", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "notifyfor_newtask"
+    t.boolean  "notifyfor_taskupdate"
+    t.boolean  "notifyfor_comment2task"
+    t.boolean  "notifyfor_taskcomplete"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string   "title"
     t.string   "remarks"
@@ -55,10 +65,11 @@ ActiveRecord::Schema.define(version: 20160915121114) do
     t.integer  "status"
     t.integer  "priority"
     t.integer  "category_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "numviews",    default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "numviews",      default: 0
     t.integer  "user_id"
+    t.integer  "assignedto_id"
   end
 
   create_table "trackings", force: :cascade do |t|

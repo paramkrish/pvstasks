@@ -1,12 +1,12 @@
 <% provide(:title, "Profile") %>
-<h2>Profile</h2>
-<hr>
+<div class='page-header'><h1>Profile</h1></div>
+
 <div class='main_contents'>
 <b>Customer ID</b>
 <p class='green'><%= @current_user.customer_id%></p>
 
 <b>Username</b><BR>
-<%=@current_user.username%></h2><BR><BR>
+<%=@current_user.username%></h2><span> (<a href='/change_password'>Change Password</a>)</span><BR><BR>
 
 <B>Avatar</B><BR><img class='img img-rounded profile-img' src='<%=@current_user.avatar.url%>'/></h2><BR> <BR>
 <b>Email</b><BR>
@@ -24,7 +24,7 @@ when "N"
 when "T"
   gender="Third Gender"
 else 
-  gender="Dont know"
+  gender="Not selected yet"
 end%>
 <%=gender%><BR><BR>
 <b>Firstname</b><BR>

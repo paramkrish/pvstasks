@@ -15,8 +15,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(user_params)
-    @task.update_attributes(:status =>0) 
+    @task = Task.new(task_params)
+    @task.update_attributes(:status =>0, :user_id => 31) 
+
 
     if @task.save
 
@@ -71,13 +72,18 @@ class TasksController < ApplicationController
   @tasks = Task.where(nil) # creates an anonymous scope
   @tasks = @tasks.status(params[:status]) if params[:status].present?
   @tasks = @tasks.user_id(params[:user_id]) if params[:user_id].present?
+  @tasks = @tasks.assignedto_id(params[:assignedto_id]) if params[:assignedto_id].present?
   @tasks = @tasks.priority(params[:priority]) if params[:priority].present?
   if params[:status].present?
     params[:status] == "0" ? @current_view = "Open Tasks" : @current_view = "Closed Tasks"
   end
   #@tasks = @tasks.category_id(params[:category_id]) if params[:category_id].present?
     if params[:user_id].present?
-      @current_view = "My Tasks" 
+      @user = User.where(:id=>params[:user_id]).first
+      @current_view = "Tasks Created by '" + @user.username + "'"
+    elsif params[:assignedto_id].present?
+      @user = User.where(:id=>params[:assignedto_id]).first
+      @current_view = "Tasks Assigned To '" + @user.username + "'"
     else
       @current_view = "All Tasks" 
     end
@@ -97,7 +103,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     #if @task.update_attributes(:name => "New") 
-    if @task.update_attributes(user_params)
+    if @task.update_attributes(task_params)
 
         @tracking = Tracking.new
         @tracking.update_attributes(:user_id => session[:current_user_id] , :task_id => @task.id, :change => "Task Updated") 
@@ -145,9 +151,9 @@ class TasksController < ApplicationController
     params.require(:tracking).permit(:task_id,:user_id,:change)
   end
 
-
-  def user_params
-    params.require(:task).permit(:title,:remarks,:category_id,:user_id,:due_date,:priority,:status)
+  def task_params
+      params.require(:task).permit(:title,:remarks, :status, :due_date, :priority,:category_id,:user_id, :assignedto_id)
   end
 
+  
 end

@@ -14,10 +14,6 @@ class SessionsController < ApplicationController
 	end
 
 
-	def preferences
-		#Setting Page
-		flash.discard
-	end
 
 	def login
 		#Login Form
@@ -28,15 +24,19 @@ class SessionsController < ApplicationController
 	def login_attempt
 		authorized_user = User.authenticate(params[:username_or_email],params[:login_password])
 		if authorized_user
-			session[:current_user_id] = authorized_user.id
-			session[:current_username] = authorized_user.username	
-			session[:expires_at] = Time.current + 24.hours
-		
-			flash[:success] = "Welcome again, #{authorized_user.username} logged in"
-			authorized_user.update_attributes(:status => 1)
-			redirect_back_or root_path || redirect_to(:action => 'home')
-
-
+			if authorized_user.status
+				session[:current_user_id] = authorized_user.id
+				session[:current_username] = authorized_user.username	
+				session[:expires_at] = Time.current + 24.hours
+			
+				flash[:success] = "Welcome again, #{authorized_user.username} logged in"
+				authorized_user.update_attributes(:status => 1)
+				redirect_back_or root_path || redirect_to(:action => 'home')
+			else 	
+				flash[:success] = "Welcome again, #{authorized_user.username} logged in"
+				redirect_to confirm_login_path
+			end
+			
 		else
 			flash[:danger] = "Invalid Username or Password"
 			render "login"	
@@ -48,6 +48,7 @@ class SessionsController < ApplicationController
 		session[:current_user_id] = nil
 		#redirect_to :action => 'login'
 	end
+
 
 
 

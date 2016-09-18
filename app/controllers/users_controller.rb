@@ -1,4 +1,7 @@
 class UsersController < ApplicationController 
+
+  before_action :authenticate_user, :only => [:change_password ]
+
   require 'sendgrid-ruby'
   include SendGrid
 
@@ -29,9 +32,9 @@ class UsersController < ApplicationController
       email.from = SendGrid::Email.new(email: 'hello@brakko.com', name: "Brakko")
 
       per = SendGrid::Personalization.new
-      per.to = SendGrid::Email.new(email: "mkparam@gmail.com", name: "Param Krish")
+      per.to = SendGrid::Email.new(email: @user.email)
       per.substitutions = SendGrid::Substitution.new(key: "%username%", value: @user.username)
-      per.substitutions = SendGrid::Substitution.new(key: "%button_url%", value: "http://www.yahoo.com")
+      per.substitutions = SendGrid::Substitution.new(key: "%button_url%", value: Rails.application.config.web_url + "/login")
       email.personalizations = per
       email.template_id = "c4641b7e-ba2c-4d7f-a5b1-751eebc46be0"
 
@@ -52,29 +55,49 @@ class UsersController < ApplicationController
 
   def edit
     if ( session[:current_user_id] )
-
       @current_user = User.find(session[:current_user_id])
-
     else 
       redirect_to sessions_login_path
     end
 
   end
 
-
   def update
     @current_user = User.find(session[:current_user_id])
     #if @task.update_attributes(:name => "New") 
-    if @current_user.update_attributes(user_params)
 
-      flash[:success] = "Profile Updated"
-      redirect_to sessions_profile_path
-    else
-      render "edit"
+    if ( ! params[:user][:oldpassword] )
+
+        if @current_user.update_attributes(user_params)
+
+          flash[:success] = "Profile Updated successfully"
+          redirect_to sessions_profile_path
+        else
+          render "edit"
+        end
+
+    else 
+      authorized_user = User.authenticate(session[:current_username],params[:user][:oldpassword])
+         if authorized_user
+            if @current_user.update_attributes(user_params)
+              flash[:success] = "Password Changed successfully "
+              redirect_to sessions_profile_path
+            else 
+              flash[:danger] = "Error in changing the Password. Retry."
+              render "change_password"
+            end
+          else 
+            flash[:danger] = "Password verification error. Old Password not matching. "
+            render "change_password"
+          end
     end
   end
 
 
+   def change_password
+    flash.discard
+    @current_user = User.find(session[:current_user_id])          
+   end
 
   def user_params
       params.require(:user).permit(:username,:customer_id, :email, :password, :password_confirmation,:gender,:avatar, :avatar_cache, :firstname, :lastname, :mobile, :address, :city, :pin, :country)

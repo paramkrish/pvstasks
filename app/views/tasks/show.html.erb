@@ -9,27 +9,25 @@
 
       <div style='background: #337ab7;
         padding: 10px 30px;
-    color: #FFF;'>Transaction History</div>
-        <div style='    height: 500px;overflow: scroll;'>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
-            <p><div style='padding:30px;border-bottom:1px solid #DDD;    color:#999;'>1. First message</div></p>
+    color: #FFF;'><h4>Task History</h4></div>
+        <div style='height: 500px;overflow: scroll;'>
+            <% @users = User.where(:id=>@task.user_id).first%>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
+            <p><div style='padding:10px;border-bottom:1px solid #DDD;    color:#999;'>
+             <img src='<%=@users.avatar.url%>' class='img img-circle' style='width:30px;'/> some message</div></p>
       </div>
     </div>
     <div>
@@ -38,7 +36,7 @@
           <% @task.priority == 1 ? @pr = "HIGH" : @task.priority == 2 ? @pr = "MEDIUM" : @pr = "LOW" %>
           <% @task.priority == 1 ? color = "red" : @task.priority == 2 ? color = "orange" : color = "grey" %>
 
-          <div class="panel panel-default">
+          <div class="panel panel-info">
             <div class="panel-heading">
               <span class='pull-left'><h4><%= @task.title %></h4></span>
               <span class="text-right"><h4> <%= @pr %></h4></span>

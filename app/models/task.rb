@@ -6,6 +6,7 @@ class Task < ApplicationRecord
 
 	scope :status, -> (status) { where status: status }
 	scope :user_id, -> (user_id) { where user_id: user_id }
+	scope :assignedto_id, -> (assignedto_id) { where assignedto_id: assignedto_id }
 	scope :priority, -> (priority) { where priority: priority }
 	scope :category_id, -> (category_id) { where category_id: category_id }
 	scope :close, -> (close) { where status: 0 } 
