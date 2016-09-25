@@ -81,6 +81,7 @@ class UsersController < ApplicationController
          if authorized_user
             if @current_user.update_attributes(user_params)
               flash[:success] = "Password Changed successfully "
+              @current_user.update_attributes(:status => 1) 
               redirect_to sessions_profile_path
             else 
               flash[:danger] = "Error in changing the Password. Retry."
@@ -96,7 +97,8 @@ class UsersController < ApplicationController
 
    def change_password
     flash.discard
-    @current_user = User.find(session[:current_user_id])          
+    @current_user = User.find(session[:current_user_id])   
+
    end
 
   def user_params

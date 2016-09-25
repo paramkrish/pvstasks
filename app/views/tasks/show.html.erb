@@ -50,8 +50,8 @@
           <BR><div class='task'>Category Id: Unassigned</div>
           <% end %>
           <BR><div class='bold'>Assigned To</div>
-          <% @user = User.where("id" => @task.user_id).first %>    
-          <div><%= link_to "#{@user.username}", tasks_path(:user_id => @task.user_id) %></div>
+          <% @assignedUser = User.where("id" => @task.assignedto_id).first %>    
+          <div><%= link_to "#{@assignedUser.username}", tasks_path(:assignedto_id => @task.assignedto_id) %></div>
           <% if @task.remarks.size > 0 %>
           <BR><BR>
           <div class='task bold'>Remarks

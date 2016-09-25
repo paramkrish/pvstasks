@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.update_attributes(:status =>0, :user_id => 31) 
+    @task.update_attributes(:status =>0, :user_id => session[:current_user_id] ) 
 
 
     if @task.save
@@ -152,7 +152,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-      params.require(:task).permit(:title,:remarks, :status, :due_date, :priority,:category_id,:user_id, :assignedto_id)
+      params.require(:task).permit(:title,:remarks, :status, :due_date, :priority,:category_id, :user_id, :assignedto_id)
   end
 
   
