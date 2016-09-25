@@ -41,7 +41,7 @@
 		<%end%>
 		<% task_owner = User.where("id" => 	task.assignedto_id).first %>
 		<% user_avatar = task_owner.avatar.url %>
-		<td style='padding-left: 17px !important;'><img src='<%=user_avatar%>' class='img img-rounded' style='width:30px;'/> <%= link_to "#{task_owner.username}", tasks_path(:user_id => task.user_id), :title => task_owner, class:"label label-default" %></td>
+		<td style='padding-left: 17px !important;'><img src='<%=user_avatar%>' class='img img-rounded' style='width:30px;'/> <%= link_to "#{task_owner.username}", tasks_path(:assignedto_id => task.assignedto_id), :title => task_owner, class:"label label-default" %></td>
 		<td><a href='/categories/<%= task.category.id%>/<%= task.category.name.html_safe %>'><small><%= task.category.name.html_safe %></small></a></td>	
 		<td><small><%= task.created_at.in_time_zone("Asia/Calcutta").strftime("%m/%d/%y %H:%M") %></small></td>
 		<% if session[:current_user_id] %>
